@@ -116,3 +116,115 @@ Tip:
 Create one new file `answers.js` and solve each task there.
 Keep task number as a comment before each solution.
 */
+
+// / 17) Print all pairs of array elements.
+// Example pair format: (a,b)
+// Input array for pair printing
+var arr17 = [2, 4, 6];
+
+// Outer loop picks first value of pair
+for (var i = 0; i < arr17.length; i += 1) {
+  // Inner loop picks second value of pair
+  for (var j = 0; j < arr17.length; j++) {
+    // Template literal prints pair in (a,b) style
+    console.log(`( ${arr17[i]} , ${arr17[j]} )`);
+  }
+}
+// 19) Rotate array right by 1 position using loop.
+// Input: [1,2,3,4] -> Output: [4,1,2,3]
+// Original array
+var arr19 = [1, 2, 3, 4];
+
+// New array to store rotated result
+var rotated = [];
+
+// Loop through each element by index
+for (var i = 0; i < arr19.length; i++) {
+  // Move each element 1 step right, wrap using %
+  var newIndex = (i + 1) % arr19.length;
+  // Place current value at new rotated index
+  rotated[newIndex] = arr19[i];
+}
+// Print rotated array
+console.log(rotated);
+
+// 20) Find common values between two arrays using nested loops.
+// First input array
+var a20 = [1, 2, 3, 4, 5];
+// Second input array
+var b20 = [3, 5, 7, 9];
+
+// Store common values
+var common = [];
+
+// Loop through first array values
+for (var i = 0; i < a20.length; i++) {
+  // Compare with every value in second array
+  for (var j = 0; j < b20.length; j++) {
+    // If both values are equal, it is a match
+    if (a20[i] === b20[j]) {
+      // Flag to avoid duplicate push in common array
+      var alreadyExists = false;
+      // Check if match is already stored
+      for (var k = 0; k < common.length; k++) {
+        if (common[k] === a20[i]) {
+          // Mark as existing and stop checking further
+          alreadyExists = true;
+          break;
+        }
+      }
+      // Push only if value is not already present
+      if (!alreadyExists) {
+        common.push(a20[i]);
+      }
+    }
+  }
+}
+// Print final common values array
+console.log(common);
+
+// =========================================================
+// C) FUNCTION ASSIGNMENTS
+// Based on concepts from functions.js:
+// function declaration, function expression, arrow, callback
+// =========================================================
+
+// 1) Create a function declaration `sayHello` that prints "Hello JS".
+// Call it 2 times.
+
+// 2) Create a function declaration `addTwoNumbers(a, b)` that returns sum.
+// Print result for (10, 20) and (7, 9).
+
+// 3) Create a function declaration `isEven(n)` that returns true if number is even.
+// Test it with 8 and 11.
+
+// 4) Create a function declaration `findSquare(n)` and return n*n.
+// Store result in a variable and print it.
+
+// 5) Create a function expression `multiply` that returns product of 2 numbers.
+// Print multiply(6, 4).
+
+// 6) Create an anonymous function and assign it to `divide`.
+// Return division of a by b and print divide(20, 5).
+
+// 7) Create an arrow function `subtract` that returns a-b.
+// Print subtract(30, 12).
+
+// 8) Create an arrow function `cube` using one-line return style.
+// Print cube(3), cube(5).
+
+// 9) Create a function `applyOperation(a, b, opFunc)`.
+// It should return opFunc(a, b). (This is callback use)
+// Test with +, -, and * operations.
+
+// 10) Create callback function `getDouble(n)` that returns n*2.
+// Create function `processNumber(num, cb)` and return cb(num).
+// Print processNumber(9, getDouble).
+
+// 11) Create function `printResult(value, cb)`:
+// It should print cb(value).
+// Pass a callback that returns value + 100.
+
+// 12) Create function `repeatMessage(message, times, cb)`:
+// Use loop and call cb(message) each time.
+// Callback should print message in uppercase.
