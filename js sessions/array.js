@@ -285,3 +285,103 @@ console.log(sortNamesDesc);
 // 8) Filter marks >= 40.
 // 9) Filter numbers divisible by 3.
 // 10) Filter positive numbers from array with negatives and zero.
+
+// reduce:
+// 1) `reduce` converts the whole array into one final value.
+// 2) That final value can be a sum, max, min, object, string, etc.
+// 3) Callback usually gets:
+//    `pv` = previous value / accumulator
+//    `cv` = current value from array
+//    `index` = current index
+//    `arr` = original array
+// 4) If initial value is not given, first array item becomes `pv`
+//    and loop starts from second item.
+
+// Reassign `nums` with one extra value so reduce examples are clearer.
+nums = [23, 123, 44, 34, 3, 2, 12, 34, 23, 1000];
+
+// Sum all numbers in the array.
+// No initial value is passed here.
+// So first call starts like:
+// `pv = 23` and `cv = 123`
+var total = nums.reduce((pv, cv) => {
+  // Add current number into running total.
+  return pv + cv;
+});
+
+// Final single value returned by reduce.
+console.log(total);
+
+// Find maximum number using reduce.
+// Here we explicitly pass an initial value: `nums[0]`.
+// That means on first callback:
+// `max = 23` and `cv = 23`
+var max = nums.reduce((max, cv) => {
+  // Print current comparison step for learning.
+  console.log(max, cv);
+
+  // If current value is bigger, make it the new max.
+  if (cv > max) {
+    return cv;
+  } else {
+    // Otherwise keep old max.
+    return max;
+  }
+}, nums[0]);
+
+// Final highest value from array.
+console.log(max);
+
+// some:
+// 1) Returns `true` if at least one item passes the condition.
+// 2) Returns `false` if no item passes.
+// 3) Stops early as soon as it finds one match.
+
+// every:
+// 1) Returns `true` only if all items pass the condition.
+// 2) Returns `false` as soon as one item fails.
+
+// Check whether every number is greater than 0.
+console.log(nums.every((n) => n > 0));
+
+// Check whether at least one number is even.
+console.log(nums.some((n) => n % 2 === 0));
+
+// find:
+// 1) Returns the first item that matches the condition.
+// 2) If nothing matches, it returns `undefined`.
+// 3) It does not return all matches, only the first one.
+
+// Return the first even number from `nums`.
+console.log(nums.find((n) => n % 2 === 0));
+
+// =========================================================
+// PRACTICE TASKS: reduce / some / every / find (20)
+// =========================================================
+// reduce (5)
+// 1) Find sum of all numbers in nums using reduce.
+// 2) Find product of all numbers in [1, 2, 3, 4] using reduce.
+// 3) Find smallest number in nums using reduce.
+// 4) Count total characters of all names using reduce.
+// 5) Convert nums into one string like "23,123,44..." using reduce.
+
+// some (5)
+// 6) Check if nums has at least one odd number.
+// 7) Check if any name starts with "a".
+// 8) Check if any number is greater than 500.
+// 9) Check if any mark is below 35.
+// 10) Check if any name length is more than 6.
+
+// every (5)
+// 11) Check if every number in nums is positive.
+// 12) Check if every name has length at least 3.
+// 13) Check if every mark is greater than or equal to 35.
+// 14) Check if every number in [2, 4, 6, 8] is even.
+// 15) Check if every name starts with a lowercase letter.
+
+// find (5)
+// 16) Find the first odd number in nums.
+// 17) Find the first number greater than 100.
+// 18) Find the first name that starts with "j".
+// 19) Find the first name with length more than 5.
+// 20) Find the first mark that is below 35.
