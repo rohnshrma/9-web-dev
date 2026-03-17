@@ -1,387 +1,448 @@
-// ARRAY BASICS:
-// Array is a reference data type used to store multiple values in order.
-// Items can be of same or mixed data types.
-// Arrays are created using square brackets `[]` and values are comma-separated.
+// ============================================================
+// ARRAYS IN JAVASCRIPT
+// ============================================================
+// An array is a special data type used to store multiple values
+// inside a single variable.
+//
+// Arrays are useful when we want to keep related data together.
+// Example:
+// - marks of students
+// - names of fruits
+// - list of prices
+// - mixed values for practice/learning
+//
+// Arrays are created using square brackets: []
+// Each value inside an array is called an "element" or "item".
+// Items are separated by commas.
+//
+// Important:
+// JavaScript arrays can store:
+// - numbers
+// - strings
+// - booleans
+// - objects
+// - other arrays
+// - even mixed data types together
+//
+// Example:
+// var sample = [10, "hello", true];
 
-// `names` is an array of strings.
-var names = [
-  "rohit",
-  "aman",
-  "suman",
-  "john",
-  "jannie",
-  "joseph",
-  "jake",
-  "john",
-  "rohan",
-  "danish",
-];
+// A simple array of numbers
+var marks = [12, 34, 23, 3, 42, 3];
 
-// `.length` returns total number of items in the array.
-console.log(names.length);
+// ============================================================
+// REFERENCE TYPE CONCEPT
+// ============================================================
+// Arrays are "reference data types".
+//
+// This is a very important beginner concept:
+// When we copy an array variable like this:
+// var yourMarks = marks;
+//
+// we are NOT creating a new separate array.
+// Both variables point to the SAME array in memory.
+//
+// That means:
+// - change through `marks`
+// - also appears in `yourMarks`
+//
+// Think of it like 2 labels attached to the same box.
+// The labels are different, but the box is the same.
+var yourMarks = marks;
 
-// Indexing starts at 0 in JavaScript arrays.
-// `names[0]` is the first item.
-console.log(names[0]);
+console.log("Original arrays:");
+console.log("marks ->", marks);
+console.log("yourMarks ->", yourMarks);
 
-// Last item index is always `length - 1`.
-console.log(names[names.length - 1]);
+// ============================================================
+// CHANGING A VALUE USING INDEX
+// ============================================================
+// Every array item has a position number called an "index".
+//
+// Index always starts from 0, not 1.
+// So for this array:
+// [12, 34, 23, 3, 42, 3]
+//
+// positions are:
+//  0   1   2  3   4  5
+//
+// To change a value:
+// arrayName[index] = newValue
+marks[1] = 100;
 
-// ARRAY METHODS:
+// Because `yourMarks` and `marks` point to the same array,
+// this change is visible in both variables.
+console.log("After changing marks[1] to 100:");
+console.log("marks ->", marks);
+console.log("yourMarks ->", yourMarks);
 
-// `.push(...)` adds one or more items at the end and mutates original array.
-names.push("johnny", "jordan");
-console.log(names);
+// Accessing individual items
+console.log("Item at index 0:", marks[0]);
+console.log("Item at index 1:", marks[1]);
 
-// `.pop()` removes and returns the last item.
-console.log(names.pop());
+// ============================================================
+// FIRST INDEX AND LAST INDEX
+// ============================================================
+// First item index  -> 0
+// Last item index   -> array.length - 1
+//
+// `length` tells how many items are inside the array.
+console.log("Length of marks array:", marks.length);
+console.log("First item:", marks[0]);
+console.log("Last item:", marks[marks.length - 1]);
 
-// Print array after pop to see mutation.
-console.log(names);
-
-// `.shift()` removes and returns first item.
-// If array is empty, it returns `undefined`.
-console.log(names.shift());
-
-// `.unshift(...)` adds one or more items at the beginning.
-names.unshift("jossie");
-console.log(names);
-
-// `.includes(value)` checks existence and returns boolean (`true` or `false`).
-console.log(names.includes("jake"));
-console.log(names.includes("hello"));
-
-// `.at(index)` returns item at given index.
-// Supports negative index: `-1` means last element.
-console.log(names.at(0));
-console.log(names.at(-1));
-
-// Current state of array before splice examples.
-console.log(names);
-
-// `.splice(start, deleteCount, ...items)` can insert, replace, or delete.
-
-// Example 1: insert "rohan" at index 1 without deleting.
-// names.splice(1, 0, "rohan");
-
-// Example 2: replace 1 item at index 1 with "rohan".
-// names.splice(1, 1, "rohan");
-
-// Example 3: delete 1 item at index 3.
-// names.splice(3, 1);
-
-// Active example:
-// Start at index 2, remove 2 items, then insert "jeet" there.
-names.splice(2, 2, "jeet");
-
-// `.indexOf(value, fromIndex)` returns first matching index from `fromIndex`.
-// If not found, returns -1.
-console.log(names.indexOf("john", 2));
-
-// 2D (nested) array: array containing arrays.
-var data = [
-  [1, 2, 3], // row 0
-  [4, 5, 6], // row 1
-  [7, 8, 9], // row 2
-];
-
-// `data[0]` is first inner array.
-console.log(data[0]);
-
-// `data[1][2]` means row 1, column 2 -> value 6.
-console.log(data[1][2]);
-
-// Third inner array.
-console.log(data[2]);
-
-// `.flat()` converts nested array into single-level array (one level by default).
-console.log(data.flat());
-
-// `.reverse()` reverses array order in place (mutates original array).
-console.log(data.reverse());
-
-// find, map, sort, reduce, forEach, filter
-
-// IMPORTANT IDEA:
-// Array callback methods (`forEach`, `map`, `filter`, `sort`) take a function.
-// JavaScript calls that function once for each element.
-// For each call, callback gets: current value, index, and original array.
-// This is why you often see `(value, index, arr)` in examples.
-
-// forEach:
-// 1) Visits every element in order.
-// 2) Good for side effects like printing, counting, updating external variable.
-// 3) Return value of callback is ignored.
-// 4) forEach itself returns `undefined` (so not used to build a new array).
-// `name` = current item, `index` = position, `arr` = full source array.
-names.forEach((name, index, arr) => {
-  // Each loop prints one row: item + index + full array reference.
-  console.log(name, index, arr);
-});
-
-// Same traversal, but now callback logic changes:
-// `toUpperCase()` returns uppercase copy of each string.
-// Original `name` string inside `names` is not changed by this line.
-names.forEach((name) => {
-  console.log(name.toUpperCase());
-});
-
-// Ternary operator format: condition ? valueIfTrue : valueIfFalse
-// Here we check name length and print a label for each item.
-names.forEach((name) => {
-  console.log(name.length > 4 ? name : "invalid names");
-});
-
-// map:
-// 1) Visits every item like forEach.
-// 2) Whatever callback returns becomes one element of NEW output array.
-// 3) Output array length is always same as input length.
-// 4) Does not mutate original array by default.
-// Build an output message for each name and store in `validNames`.
-var validNames = names.map((name) => {
-  // Returned string is collected into new array at same index.
-  return `${name} is ${name.length > 4 ? "Valid" : "Invalid"}`;
-});
-
-// Final mapped array of messages.
-console.log(validNames);
-
-// Number array for map/filter/sort examples.
-var nums = [23, 123, 44, 34, 3, 2, 12, 34, 23];
-
-// `%` gives remainder after division.
-// `n % 2 === 0` means divisible by 2, so number is even.
-// map builds one label per number.
-var mapRes1 = nums.map((n) => `${n} is ${n % 2 === 0 ? "even" : "odd"}`);
-
-// Example output item: "44 is even".
-console.log(mapRes1);
-
-// Same input, different transformation:
-// Output becomes an array of booleans showing even check result.
-var mapRes2 = nums.map((n) => n % 2 === 0);
-
-// Example output item: true for 44, false for 23.
-console.log(mapRes2);
-
-// Manual map version with `for` loop:
-// This helps understand what map is doing internally.
-var manualMapRes = [];
-for (var i = 0; i < nums.length; i++) {
-  // Push one transformed value per iteration.
-  manualMapRes.push(`${nums[i]} is ${nums[i] % 2 === 0 ? "even" : "odd"}`);
+// ============================================================
+// LOOPING THROUGH AN ARRAY
+// ============================================================
+// A loop helps us access every item one by one.
+//
+// Here:
+// 1) `i = 0` means start from first index
+// 2) `i < marks.length` means run until last valid index
+// 3) `i++` means increase i by 1 after every round
+//
+// This is one of the most common ways to read an array.
+console.log("Looping through all marks:");
+for (var i = 0; i < marks.length; i++) {
+  console.log("Index", i, "Value", marks[i]);
 }
 
-// Should match `mapRes1`.
-console.log(manualMapRes);
+// ============================================================
+// ARRAY METHODS
+// ============================================================
+// Methods are built-in functions that arrays already have.
+// They help us read, add, remove, search, or transform data.
 
-// filter:
-// 1) Callback must return true/false.
-// 2) If true, element is kept.
-// 3) If false, element is skipped.
-// 4) Output length can be smaller/equal to input (never bigger).
+// ------------------------------------------------------------
+// at()
+// ------------------------------------------------------------
+// `at(index)` returns the item at a specific position.
+//
+// Difference from normal bracket access:
+// - `at(0)` behaves like marks[0]
+// - `at(-1)` gives last item
+// - `at(-2)` gives second last item
+//
+// Negative indexes are very convenient with `at()`.
+console.log("at(0):", marks.at(0));
+console.log("at(-2):", marks.at(-2));
 
-// Keep numbers that pass even condition.
-var filterRes = nums.filter((n) => n % 2 === 0);
+// ------------------------------------------------------------
+// includes()
+// ------------------------------------------------------------
+// `includes(value)` checks whether an item exists in the array.
+// It returns:
+// - true  -> if item is found
+// - false -> if item is not found
+//
+// `includes(value, startIndex)` starts searching from that index.
+console.log("includes(3):", marks.includes(3));
+console.log("includes(3, 4):", marks.includes(3, 4));
 
-// Output contains only accepted elements.
-console.log(filterRes);
+// ------------------------------------------------------------
+// push()
+// ------------------------------------------------------------
+// `push()` adds one or more items to the END of the array.
+//
+// Important:
+// `push()` returns the NEW LENGTH of the array,
+// not the updated array itself.
+console.log("Return value of push:", marks.push(356, 678));
+console.log("Array after push:", marks);
 
-// Manual filter version:
-// If condition is true, push into result array.
-var evens = [];
-for (var i = 0; i < nums.length; i++) {
-  // `&&` short-circuit:
-  // if left side true, right side runs -> push value.
-  nums[i] % 2 === 0 && evens.push(nums[i]);
-}
+// ------------------------------------------------------------
+// unshift()
+// ------------------------------------------------------------
+// `unshift()` adds one or more items to the START of the array.
+//
+// This changes all existing indexes because everything moves right.
+marks.unshift(1000, 2000);
+console.log("Array after unshift:", marks);
 
-// Should match `filterRes`.
-console.log(evens);
+// ------------------------------------------------------------
+// pop()
+// ------------------------------------------------------------
+// `pop()` removes the LAST item from the array.
+//
+// It also returns the removed item.
+var removedFromEnd = marks.pop();
+console.log("Removed by pop:", removedFromEnd);
+console.log("Array after pop:", marks);
 
-// `name[0]` means first character.
-// `!= "j"` keeps names not starting with j.
-var nonJNames = names.filter((name) => name[0] != "j");
+// ------------------------------------------------------------
+// shift()
+// ------------------------------------------------------------
+// `shift()` removes the FIRST item from the array.
+//
+// It also returns the removed item.
+var removedFromStart = marks.shift();
+console.log("Removed by shift:", removedFromStart);
+console.log("Array after shift:", marks);
 
-// Print filtered names list.
-console.log(nonJNames);
+// ------------------------------------------------------------
+// splice()
+// ------------------------------------------------------------
+// `splice()` is a very important array method because it can:
+// - add items
+// - remove items
+// - replace items
+//
+// Syntax:
+// array.splice(startIndex, deleteCount, item1, item2, ...)
+//
+// It changes the ORIGINAL array.
 
-// sort:
-// 1) sort() changes order of SAME array (mutation).
-// 2) Without comparator, numbers are treated as strings (can give wrong order).
-// 3) So for numbers, always pass comparator `(a, b) => a - b` or `b - a`.
-// `.slice()` creates shallow copy first, so `nums` stays unchanged.
-// Ascending comparator:
-// If result < 0, `a` comes first.
-// If result > 0, `b` comes first.
-var sortNumsAsc = nums.slice().sort((a, b) => a - b);
-console.log(sortNumsAsc);
+// Add 1000 at index 2 without deleting anything
+marks.splice(2, 0, 1000);
+console.log("After adding 1000 with splice:", marks);
 
-// Descending order by reversing subtraction.
-var sortNumsDesc = nums.slice().sort((a, b) => b - a);
-console.log(sortNumsDesc);
+// Start at index 0, remove 1 item, then insert 50000 there
+marks.splice(0, 1, 50000);
+console.log("After replacing first item with 50000:", marks);
 
-// For strings, `localeCompare` gives safer alphabetical comparison.
-// Negative => left string before right string.
-var sortNamesAsc = names.slice().sort((a, b) => a.localeCompare(b));
-console.log(sortNamesAsc);
+// Start at index 0 and remove 1 item
+marks.splice(0, 1);
+console.log("After removing first item using splice:", marks);
 
-// Swap comparison direction for reverse alphabetical.
-var sortNamesDesc = names.slice().sort((a, b) => b.localeCompare(a));
-console.log(sortNamesDesc);
+// ------------------------------------------------------------
+// slice()
+// ------------------------------------------------------------
+// `slice(start, end)` returns a copy of part of the array.
+//
+// Important:
+// - start is inclusive
+// - end is exclusive
+// - original array does NOT change
+//
+// So slice(0, 3) means:
+// take index 0, 1, 2
+// but stop before index 3
+console.log("slice(0, 3):", marks.slice(0, 3));
+console.log("Array after slice (unchanged):", marks);
 
-// =========================================================
-// PRACTICE TASKS: forEach (10)
-// =========================================================
-// 1) Print each name with its index using forEach.
-// 2) Print each number and its square using forEach.
-// 3) Count how many names have length > 5 using forEach.
-// 4) Print only even numbers from nums using forEach + if.
-// 5) Print each name in uppercase using forEach.
-// 6) Create a variable `sum` and add all nums using forEach.
-// 7) Print "pass" if number >= 35 else "fail" for marks array.
-// 8) Print each name as: "Hello, <name>".
-// 9) Count vowels in each name and print result line by line.
-// 10) Print only names that start with "j" using forEach + if.
+// ============================================================
+// MULTIDIMENSIONAL ARRAY
+// ============================================================
+// An array can store other arrays.
+// This is called a nested array or 2D array.
+//
+// You can imagine it like rows and columns.
+var totalMarks = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
 
-// =========================================================
-// PRACTICE TASKS: map (10)
-// =========================================================
-// 1) Create new array of squares from nums.
-// 2) Create new array of cubes from nums.
-// 3) Convert each name to uppercase and store in new array.
-// 4) Convert each name to its length.
-// 5) Convert nums to "even"/"odd" labels.
-// 6) Add 10 to each number and store result.
-// 7) Convert each number to string with "Rs." prefix.
-// 8) Create new array where each name is "<name>@mail.com".
-// 9) Multiply each number by index and return new array.
-// 10) Convert each number to boolean showing if it is > 50.
+// To access nested values:
+// totalMarks[rowIndex][columnIndex]
+console.log("totalMarks[0][2]:", totalMarks[0][2]);
+console.log("totalMarks[2][2]:", totalMarks[2][2]);
 
-// =========================================================
-// PRACTICE TASKS: sort (10)
-// =========================================================
-// 1) Sort nums in ascending order.
-// 2) Sort nums in descending order.
-// 3) Sort names alphabetically.
-// 4) Sort names reverse-alphabetically.
-// 5) Sort marks array ascending.
-// 6) Sort marks array descending.
-// 7) Sort array [100, 2, 25, 9] correctly as numbers.
-// 8) Sort array of month names alphabetically.
-// 9) Sort word array by length (short to long).
-// 10) Sort word array by length (long to short).
+// ------------------------------------------------------------
+// flat()
+// ------------------------------------------------------------
+// `flat()` converts nested arrays into a simpler single array.
+//
+// Here it removes one level of nesting.
+// Important:
+// `flat()` returns a NEW array.
+// It does not change the original unless we store it again.
+console.log("Before flat:", totalMarks);
+console.log("After flat:", totalMarks.flat());
 
-// =========================================================
-// PRACTICE TASKS: filter (10)
-// =========================================================
-// 1) Filter only even numbers from nums.
-// 2) Filter only odd numbers from nums.
-// 3) Filter numbers greater than 30.
-// 4) Filter numbers between 10 and 50.
-// 5) Filter names with length >= 5.
-// 6) Filter names starting with "j".
-// 7) Filter names not starting with "j".
-// 8) Filter marks >= 40.
-// 9) Filter numbers divisible by 3.
-// 10) Filter positive numbers from array with negatives and zero.
+// ============================================================
+// CONCATENATION
+// ============================================================
+// "Concatenation" means joining things together.
 
-// reduce:
-// 1) `reduce` converts the whole array into one final value.
-// 2) That final value can be a sum, max, min, object, string, etc.
-// 3) Callback usually gets:
-//    `pv` = previous value / accumulator
-//    `cv` = current value from array
-//    `index` = current index
-//    `arr` = original array
-// 4) If initial value is not given, first array item becomes `pv`
-//    and loop starts from second item.
+// Using `+` with arrays converts them to strings first.
+// So the result is NOT a real array.
+console.log("Concatenation using + :", marks + yourMarks);
 
-// Reassign `nums` with one extra value so reduce examples are clearer.
-nums = [23, 123, 44, 34, 3, 2, 12, 34, 23, 1000];
+// `concat()` joins arrays properly and returns a new array.
+console.log("Concatenation using concat():", marks.concat(yourMarks));
 
-// Sum all numbers in the array.
-// No initial value is passed here.
-// So first call starts like:
-// `pv = 23` and `cv = 123`
-var total = nums.reduce((pv, cv) => {
-  // Add current number into running total.
-  return pv + cv;
-});
+console.log("Current marks array:", marks);
 
-// Final single value returned by reduce.
-console.log(total);
+// ------------------------------------------------------------
+// indexOf()
+// ------------------------------------------------------------
+// `indexOf(value)` returns the index of the FIRST matching item.
+//
+// If item is not found, it returns -1.
+//
+// `indexOf(value, startIndex)` starts searching from a given index.
+console.log("indexOf(3):", marks.indexOf(3));
+console.log("indexOf(3, 5):", marks.indexOf(3, 5));
 
-// Find maximum number using reduce.
-// Here we explicitly pass an initial value: `nums[0]`.
-// That means on first callback:
-// `max = 23` and `cv = 23`
-var max = nums.reduce((max, cv) => {
-  // Print current comparison step for learning.
-  console.log(max, cv);
+// ------------------------------------------------------------
+// reverse()
+// ------------------------------------------------------------
+// `reverse()` changes the order of items in the ORIGINAL array.
+//
+// Important:
+// This method mutates the array, which means it changes the actual array.
+marks.reverse();
+console.log("After reverse:", marks);
 
-  // If current value is bigger, make it the new max.
-  if (cv > max) {
-    return cv;
-  } else {
-    // Otherwise keep old max.
-    return max;
-  }
-}, nums[0]);
+// ------------------------------------------------------------
+// join()
+// ------------------------------------------------------------
+// `join(separator)` converts the array into a string.
+//
+// It places the given separator between each item.
+console.log('join("+"):', marks.join("+"));
 
-// Final highest value from array.
-console.log(max);
+// ------------------------------------------------------------
+// lastIndexOf()
+// ------------------------------------------------------------
+// `lastIndexOf(value)` returns the index of the LAST matching item.
+//
+// Search happens from right to left.
+//
+// `lastIndexOf(value, startIndex)` starts checking backward from
+// the given index.
+console.log("marks:", marks);
+console.log("lastIndexOf(3):", marks.lastIndexOf(3));
+console.log("lastIndexOf(3, 2):", marks.lastIndexOf(3, 2));
 
-// some:
-// 1) Returns `true` if at least one item passes the condition.
-// 2) Returns `false` if no item passes.
-// 3) Stops early as soon as it finds one match.
+// ============================================================
+// BEGINNER SUMMARY
+// ============================================================
+// 1) Arrays store multiple values in one variable.
+// 2) Array index starts from 0.
+// 3) `length` tells total number of items.
+// 4) Arrays are reference types, so copying a variable may still
+//    point to the same original array.
+// 5) Some methods return new arrays/values.
+// 6) Some methods change the original array directly.
+//
+// Methods that changed the original array in this file:
+// - push()
+// - unshift()
+// - pop()
+// - shift()
+// - splice()
+// - reverse()
+//
+// Methods that returned a value/new array without changing original:
+// - at()
+// - includes()
+// - slice()
+// - flat()
+// - concat()
+// - indexOf()
+// - join()
+// - lastIndexOf()
 
-// every:
-// 1) Returns `true` only if all items pass the condition.
-// 2) Returns `false` as soon as one item fails.
+// ============================================================
+// PRACTICE TASKS FOR BEGINNERS
+// ============================================================
+// Try solving these tasks on your own below this section.
+// Do not worry about making mistakes. Practice is how these
+// concepts start feeling natural.
+//
+// You can create new variables and write your answers under
+// each task.
 
-// Check whether every number is greater than 0.
-console.log(nums.every((n) => n > 0));
+// Task 1:
+// Create an array named `fruits` with 5 fruit names.
+// Print the whole array.
 
-// Check whether at least one number is even.
-console.log(nums.some((n) => n % 2 === 0));
+// Task 2:
+// Print:
+// - the first fruit
+// - the last fruit
+// - the length of the array
 
-// find:
-// 1) Returns the first item that matches the condition.
-// 2) If nothing matches, it returns `undefined`.
-// 3) It does not return all matches, only the first one.
+// Task 3:
+// Change the value at index 2 of `fruits` to any other fruit.
+// Then print the updated array.
 
-// Return the first even number from `nums`.
-console.log(nums.find((n) => n % 2 === 0));
+// Task 4:
+// Use a `for` loop to print every fruit one by one.
+// Also print its index with it.
 
-// =========================================================
-// PRACTICE TASKS: reduce / some / every / find (20)
-// =========================================================
-// reduce (5)
-// 1) Find sum of all numbers in nums using reduce.
-// 2) Find product of all numbers in [1, 2, 3, 4] using reduce.
-// 3) Find smallest number in nums using reduce.
-// 4) Count total characters of all names using reduce.
-// 5) Convert nums into one string like "23,123,44..." using reduce.
+// Task 5:
+// Check whether `fruits` includes "apple".
+// Then check whether it includes "mango".
 
-// some (5)
-// 6) Check if nums has at least one odd number.
-// 7) Check if any name starts with "a".
-// 8) Check if any number is greater than 500.
-// 9) Check if any mark is below 35.
-// 10) Check if any name length is more than 6.
+// Task 6:
+// Add 2 new fruits at the end of the array using `push()`.
+// Print:
+// - the return value of `push()`
+// - the updated array
 
-// every (5)
-// 11) Check if every number in nums is positive.
-// 12) Check if every name has length at least 3.
-// 13) Check if every mark is greater than or equal to 35.
-// 14) Check if every number in [2, 4, 6, 8] is even.
-// 15) Check if every name starts with a lowercase letter.
+// Task 7:
+// Add 2 new fruits at the beginning using `unshift()`.
+// Print the updated array.
 
-// find (5)
-// 16) Find the first odd number in nums.
-// 17) Find the first number greater than 100.
-// 18) Find the first name that starts with "j".
-// 19) Find the first name with length more than 5.
-// 20) Find the first mark that is below 35.
+// Task 8:
+// Remove:
+// - one fruit from the end using `pop()`
+// - one fruit from the beginning using `shift()`
+// Print the removed values and the updated array.
+
+// Task 9:
+// Use `splice()` to do all 3 things:
+// - add one item
+// - replace one item
+// - remove one item
+// Print the array after each operation.
+
+// Task 10:
+// Use `slice()` to copy only the first 3 fruits into a new array.
+// Print both arrays and check whether original array changed or not.
+
+// Task 11:
+// Create a nested array named `matrix` like this:
+// [
+//   [10, 20],
+//   [30, 40]
+// ]
+// Print:
+// - 10
+// - 40
+
+// Task 12:
+// Use `flat()` on a nested array and print the result.
+// Also print the original nested array to see whether it changed.
+
+// Task 13:
+// Create 2 arrays:
+// var a = [1, 2, 3];
+// var b = [4, 5, 6];
+// Join them using:
+// - `+`
+// - `concat()`
+// Observe the difference in output type.
+
+// Task 14:
+// Find:
+// - the first index of a repeated value using `indexOf()`
+// - the last index of the same value using `lastIndexOf()`
+
+// Task 15:
+// Reverse an array using `reverse()`.
+// Then convert it into a string using `join("-")`.
+
+// Task 16:
+// Create one array and assign it to another variable:
+// var arr1 = [1, 2, 3];
+// var arr2 = arr1;
+// Change one value using `arr1`.
+// Print both arrays and explain in your own words why both changed.
+
+// Task 17:
+// Write in comments:
+// Which methods change the original array?
+// Which methods return a new value or new array?
+
+// Bonus Task 18:
+// Create an array of marks and calculate the total sum using a loop.
+
+// Bonus Task 19:
+// Create an array of numbers and count how many times `3` appears.
+
+// Bonus Task 20:
+// Create your own 5 practice questions based on arrays.
