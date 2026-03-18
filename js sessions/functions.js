@@ -1,111 +1,206 @@
-// functions:
-// reusable block of code
+// ===============================
+// FUNCTIONS IN JAVASCRIPT
+// ===============================
 
-// code inside of the function runs only when the function is called.
+// A function is a reusable block of code.
+// It runs ONLY when it is called (invoked).
 
-// =================> function declaration
+// ===============================
+// BMI WITHOUT FUNCTION (BASIC WAY)
+// ===============================
 
-// function funcName(parameters){
-//     code to be executed
-// }
+// Taking input from user
+var height = parseFloat(prompt("Enter height in meters : "));
+var weight = parseInt(prompt("Enter weight in kilograms : "));
 
-// funcName(attributes)
+// BMI Formula
+// BMI = weight / (height * height)
+var bmi = weight / height ** 2;
 
-function greet() {
-  console.log("hello world");
+// Conditional logic to categorize BMI
+if (bmi < 18.5) {
+  console.log(`Underweight as your bmi is ${bmi}`);
+} else if (bmi >= 18.5 && bmi < 25) {
+  console.log(`Normal weight as your bmi is ${bmi}`);
+} else if (bmi >= 25 && bmi < 30) {
+  console.log(`Overweight as your bmi is ${bmi}`);
+} else {
+  console.log(`Obese as your bmi is ${bmi}`);
 }
 
-// greet();
+// ❗ PROBLEM:
+// This code is NOT reusable.
+// Every time you want to calculate BMI → you must rewrite everything.
 
-// function to calculate bmi of a person
+// ===============================
+// FUNCTION DECLARATION
+// ===============================
 
-// function calcBmi() {
-//   var weight = parseInt(prompt("Enter your weight in kg's :"));
-//   var height = parseFloat(prompt("Enter your height in meters's :"));
-//   var bmi = weight / (height * height);
+// Function syntax:
+// function functionName(parameters) { code }
 
-//   console.log(bmi);
-// }
+// PARAMETERS → variables that receive values when function is called
 
-// calcBmi();
-
-// parameters : fake variables | variables without values
-// values are provided when the function is called
-
-function calcBmi(weight, height) {
-  var bmi = weight / (height * height);
-
-  console.log(bmi);
+function addition(a, b) {
+  // 'a' and 'b' are parameters
+  console.log(a + b); // prints sum
 }
 
-calcBmi(100, 1.8);
-calcBmi(120, 1.76);
+// Function calls (invoking function)
+addition(12, 45); // a=12, b=45
+addition(15, 45);
+addition(16, 45);
 
-// function printInfo() {
-//   // local scope
-//   var name = prompt("Enter your name :");
-//   console.log("hello world my name is " + name);
-// }
+// ===============================
+// FUNCTION FOR BMI (REUSABLE)
+// ===============================
 
-// printInfo();
+function calcBmi(height, weight) {
+  // height & weight are PARAMETERS
 
-function calSq(n) {
-  return n ** 2;
+  // LOCAL VARIABLE
+  // This variable exists ONLY inside the function
+  var bmi = weight / height ** 2;
+
+  // Decision making
+  if (bmi < 18.5) {
+    console.log(`Underweight as your bmi is ${bmi}`);
+  } else if (bmi >= 18.5 && bmi < 25) {
+    console.log(`Normal weight as your bmi is ${bmi}`);
+  } else if (bmi >= 25 && bmi < 30) {
+    console.log(`Overweight as your bmi is ${bmi}`);
+  } else {
+    console.log(`Obese as your bmi is ${bmi}`);
+  }
 }
 
-console.log(calSq(23));
-var sq_23 = calSq(23);
+// Function calls with different values
+calcBmi(1.8, 100);
+calcBmi(1.69, 68);
+calcBmi(1.79, 100);
 
-console.log(`the square of 23 is ${sq_23}`);
+// ✅ BENEFIT:
+// Same logic reused multiple times → cleaner code
 
-// ============================>  function expressions
-// 1. anonynous functions
-// 2. arrow functions
+// ===============================
+// GLOBAL VS LOCAL VARIABLES
+// ===============================
 
-// anonymous:
-// function (parameters){
-// code to be executed
-// }
+var x = 34; // GLOBAL → accessible everywhere
 
-// arrow :
-// ()=>{
-// code to be executed
-// }
+console.log(x); // works
 
-// usage :
-// 1. as a value to a variable
+// console.log(bmi); ❌ ERROR
+// Because bmi is LOCAL inside calcBmi()
 
-// anonymous
-var addition = function (a, b) {
-  return a + b;
-};
+// ===============================
+// RETURN KEYWORD
+// ===============================
 
-console.log(addition(12, 34));
+// return does TWO things:
+// 1. Stops function execution immediately
+// 2. Sends value back to where function was called
 
-// arrow
-var subtraction = (a, b) => {
-  return a - b;
-};
+function logs() {
+  console.log(1);
+  console.log(2);
 
-console.log(subtraction(12, 2));
+  return; // function stops here
 
-// arrow : in case of exact one parameter () can be omitted
-// arrow : if all the code does is return something , then {} and return can be omiited
-var calCube = (n) => n ** 3;
+  // Below lines NEVER run
+  console.log(3);
+  console.log(4);
+}
 
-console.log(calCube(2));
+logs();
 
-// ---------------------- callback
-// when a function is passed into another function as parameter , the passed function is called
-// a callback
+// ===============================
+// FUNCTION WITH RETURN VALUE
+// ===============================
 
-// function that returns age of a person
+function calcSq(n) {
+  console.log("Generating sq", n ** 2);
 
-var calcAge = () =>
-  new Date().getFullYear() - parseInt(prompt("Enter your year of birth : "));
+  return n ** 2; // returns square value
+}
 
-var lifeSpan = (average_age, ageFunc) => average_age - ageFunc();
+// Calling function and directly printing returned value
+console.log(calcSq(2));
 
-console.log(lifeSpan(90, calcAge));
+// Storing returned value in variable
+var res = calcSq(123);
+console.log(res);
 
-// callback => calcAge
+// ===============================
+// IMPORTANT CONCEPT SUMMARY
+// ===============================
+
+// 1. PARAMETERS vs ARGUMENTS
+// Parameters → (a, b) in function definition
+// Arguments → (12, 45) in function call
+
+// 2. LOCAL SCOPE
+// Variables inside function → only accessible there
+
+// 3. GLOBAL SCOPE
+// Variables outside function → accessible everywhere
+
+// 4. RETURN
+// Stops function + sends value back
+
+// 5. VOID FUNCTION
+// Function that does NOT return anything (like addition)
+
+// 6. VALUE RETURNING FUNCTION
+// Function that returns value (like calcSq)
+
+// ====================================
+
+// 🧠 PRACTICE TASKS (FUNCTIONS ONLY)
+// 🔹 Basic Level
+
+// Create a function greet(name) → print "Hello <name>"
+
+// Create a function square(n) → print square of number
+
+// Create a function cube(n) → return cube and print it outside
+
+// Create a function isEven(n) → print whether number is even or odd
+
+// Create a function max(a, b) → print greater number
+
+// 🔹 Intermediate Level
+
+// Create a function calcArea(length, breadth) → return area
+
+// Create a function calcSimpleInterest(p, r, t)
+
+// Create a function convertCelsiusToFahrenheit(c)
+
+// Create a function checkVotingAge(age) → print eligible or not
+
+// Create a function sumTillN(n) → sum from 1 to n
+
+// 🔹 Advanced (Logic Building)
+
+// Create a function reverseNumber(n)
+
+// Create a function countDigits(n)
+
+// Create a function isPalindrome(n)
+
+// Create a function factorial(n)
+
+// Create a function checkPrime(n)
+
+// 🔹 Real-Life Practice
+
+// Create a function billAmount(units) (electricity bill logic)
+
+// Create a function discount(price)
+
+// Create a function login(username, password) (dummy check)
+
+// Create a function calculateBMI(height, weight) → return value (not print)
+
+// Create a function grade(marks) → return A/B/C/D
