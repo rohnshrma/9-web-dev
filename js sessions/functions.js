@@ -3,204 +3,431 @@
 // ===============================
 
 // A function is a reusable block of code.
-// It runs ONLY when it is called (invoked).
+// We write the code once, and then we can run it many times.
+// This helps us avoid repeating the same logic again and again.
 
-// ===============================
-// BMI WITHOUT FUNCTION (BASIC WAY)
-// ===============================
+// Real-life idea:
+// Think of a function like a machine.
+// You give the machine some input,
+// it does some work,
+// and then it gives you output.
 
-// Taking input from user
-var height = parseFloat(prompt("Enter height in meters : "));
-var weight = parseInt(prompt("Enter weight in kilograms : "));
+// General syntax of a function declaration:
+// function functionName(parameters) {
+//   // code to run
+// }
 
-// BMI Formula
-// BMI = weight / (height * height)
-var bmi = weight / height ** 2;
+// "function" is the keyword.
+// "functionName" is the name we choose.
+// "parameters" are placeholder variables that receive values.
 
-// Conditional logic to categorize BMI
-if (bmi < 18.5) {
-  console.log(`Underweight as your bmi is ${bmi}`);
-} else if (bmi >= 18.5 && bmi < 25) {
-  console.log(`Normal weight as your bmi is ${bmi}`);
-} else if (bmi >= 25 && bmi < 30) {
-  console.log(`Overweight as your bmi is ${bmi}`);
-} else {
-  console.log(`Obese as your bmi is ${bmi}`);
+// -------------------------------------------------
+// EXAMPLE 1: SIMPLE FUNCTION THAT PRINTS SOMETHING
+// -------------------------------------------------
+
+function greetStudent(name) {
+  // "name" is a parameter.
+  // It stores whatever value is passed while calling the function.
+  console.log("Hello, " + name + "!");
 }
 
-// ❗ PROBLEM:
-// This code is NOT reusable.
-// Every time you want to calculate BMI → you must rewrite everything.
+// Function call examples:
+// greetStudent("Rohan");
+// greetStudent("Aman");
 
-// ===============================
-// FUNCTION DECLARATION
-// ===============================
+// Notice:
+// The function definition only creates the function.
+// The function call actually runs it.
 
-// Function syntax:
-// function functionName(parameters) { code }
-
-// PARAMETERS → variables that receive values when function is called
+// -------------------------------------------------
+// EXAMPLE 2: ADDITION FUNCTION
+// -------------------------------------------------
 
 function addition(a, b) {
-  // 'a' and 'b' are parameters
-  console.log(a + b); // prints sum
+  // "a" and "b" are parameters.
+  // They act like local variables inside this function.
+  var sum = a + b;
+  console.log("Sum is:", sum);
 }
 
-// Function calls (invoking function)
-addition(12, 45); // a=12, b=45
-addition(15, 45);
-addition(16, 45);
+// addition(12, 45);
+// addition(5, 8);
 
-// ===============================
-// FUNCTION FOR BMI (REUSABLE)
-// ===============================
+// Important words:
+// Parameters -> variables in the function definition
+// Arguments  -> actual values passed during the function call
+// Example:
+// In addition(a, b), a and b are parameters.
+// In addition(12, 45), 12 and 45 are arguments.
 
-function calcBmi(height, weight) {
-  // height & weight are PARAMETERS
+// -------------------------------------------------
+// WHY FUNCTIONS ARE USEFUL
+// -------------------------------------------------
 
-  // LOCAL VARIABLE
-  // This variable exists ONLY inside the function
-  var bmi = weight / height ** 2;
+// Suppose we want to calculate BMI for many people.
+// If we do it without a function, we repeat the same formula many times.
+// That makes code longer and harder to maintain.
+// With a function, we write the logic once and reuse it.
 
-  // Decision making
+// -------------------------------------------------
+// EXAMPLE 3: BMI FUNCTION THAT PRINTS RESULT
+// -------------------------------------------------
+
+function showBmiMessage(height, weight) {
+  // These variables exist only inside this function.
+  // That is why they are called local variables.
+  var bmi = weight / (height ** 2);
+
+  console.log("BMI value is:", bmi.toFixed(2));
+
   if (bmi < 18.5) {
-    console.log(`Underweight as your bmi is ${bmi}`);
-  } else if (bmi >= 18.5 && bmi < 25) {
-    console.log(`Normal weight as your bmi is ${bmi}`);
-  } else if (bmi >= 25 && bmi < 30) {
-    console.log(`Overweight as your bmi is ${bmi}`);
+    console.log("Category: Underweight");
+  } else if (bmi < 25) {
+    console.log("Category: Normal weight");
+  } else if (bmi < 30) {
+    console.log("Category: Overweight");
   } else {
-    console.log(`Obese as your bmi is ${bmi}`);
+    console.log("Category: Obese");
   }
 }
 
-// Function calls with different values
-calcBmi(1.8, 100);
-calcBmi(1.69, 68);
-calcBmi(1.79, 100);
+// showBmiMessage(1.8, 100);
+// showBmiMessage(1.69, 68);
 
-// ✅ BENEFIT:
-// Same logic reused multiple times → cleaner code
+// -------------------------------------------------
+// GLOBAL SCOPE VS LOCAL SCOPE
+// -------------------------------------------------
 
-// ===============================
-// GLOBAL VS LOCAL VARIABLES
-// ===============================
+var schoolName = "ABC School";
+// This variable is global because it is created outside any function.
+// It can be accessed almost anywhere in the file.
 
-var x = 34; // GLOBAL → accessible everywhere
+console.log("Global variable example:", schoolName);
 
-console.log(x); // works
+function explainScope() {
+  var className = "JavaScript Basics";
+  // This variable is local.
+  // It can only be used inside explainScope().
+  console.log("Inside function, local variable:", className);
+}
 
-// console.log(bmi); ❌ ERROR
-// Because bmi is LOCAL inside calcBmi()
+// explainScope();
 
-// ===============================
+// console.log(className);
+// The line above would give an error,
+// because className is local to explainScope().
+
+// -------------------------------------------------
 // RETURN KEYWORD
-// ===============================
+// -------------------------------------------------
 
-// return does TWO things:
-// 1. Stops function execution immediately
-// 2. Sends value back to where function was called
+// "return" does two jobs:
+// 1. It immediately stops the function.
+// 2. It sends a value back to the place where the function was called.
 
-function logs() {
-  console.log(1);
-  console.log(2);
+function demoReturn() {
+  console.log("Line 1 runs");
+  console.log("Line 2 runs");
 
-  return; // function stops here
+  return;
 
-  // Below lines NEVER run
-  console.log(3);
-  console.log(4);
+  // These lines never run because return already stopped the function.
+  // console.log("Line 3 runs");
+  // console.log("Line 4 runs");
 }
 
-logs();
+// demoReturn();
 
-// ===============================
-// FUNCTION WITH RETURN VALUE
-// ===============================
+// -------------------------------------------------
+// FUNCTION THAT RETURNS A VALUE
+// -------------------------------------------------
 
-function calcSq(n) {
-  console.log("Generating sq", n ** 2);
-
-  return n ** 2; // returns square value
+function calcSquare(n) {
+  var square = n ** 2;
+  return square;
 }
 
-// Calling function and directly printing returned value
-console.log(calcSq(2));
+// When a function returns a value,
+// we can store it in a variable or print it.
 
-// Storing returned value in variable
-var res = calcSq(123);
-console.log(res);
+// var result = calcSquare(6);
+// console.log("Square is:", result);
+// console.log("Square is:", calcSquare(9));
 
-// ===============================
-// IMPORTANT CONCEPT SUMMARY
-// ===============================
+// -------------------------------------------------
+// VOID FUNCTION VS VALUE-RETURNING FUNCTION
+// -------------------------------------------------
 
-// 1. PARAMETERS vs ARGUMENTS
-// Parameters → (a, b) in function definition
-// Arguments → (12, 45) in function call
+// A void function mainly performs an action.
+// Example: printing something on the console.
 
-// 2. LOCAL SCOPE
-// Variables inside function → only accessible there
+function sayWelcome() {
+  console.log("Welcome to the class!");
+}
 
-// 3. GLOBAL SCOPE
-// Variables outside function → accessible everywhere
+// A value-returning function gives back a result.
 
-// 4. RETURN
-// Stops function + sends value back
+function multiply(a, b) {
+  return a * b;
+}
 
-// 5. VOID FUNCTION
-// Function that does NOT return anything (like addition)
+// sayWelcome();
+// console.log(multiply(4, 5));
 
-// 6. VALUE RETURNING FUNCTION
-// Function that returns value (like calcSq)
+// -------------------------------------------------
+// PRACTICE FUNCTIONS WITH COMMENTS
+// -------------------------------------------------
 
-// ====================================
+function cube(n) {
+  // Multiply the number by itself three times.
+  return n * n * n;
+}
 
-// 🧠 PRACTICE TASKS (FUNCTIONS ONLY)
-// 🔹 Basic Level
+function isEven(n) {
+  // If remainder is 0 after dividing by 2,
+  // the number is even.
+  return n % 2 === 0;
+}
 
-// Create a function greet(name) → print "Hello <name>"
+function max(a, b) {
+  // Compare two values and return the greater one.
+  if (a > b) {
+    return a;
+  }
+  return b;
+}
 
-// Create a function square(n) → print square of number
+function calcArea(length, breadth) {
+  // Area of rectangle = length * breadth
+  return length * breadth;
+}
 
-// Create a function cube(n) → return cube and print it outside
+function calcSimpleInterest(principal, rate, time) {
+  // Formula: (P * R * T) / 100
+  return (principal * rate * time) / 100;
+}
 
-// Create a function isEven(n) → print whether number is even or odd
+function convertCelsiusToFahrenheit(celsius) {
+  // Formula: (C * 9/5) + 32
+  return (celsius * 9) / 5 + 32;
+}
 
-// Create a function max(a, b) → print greater number
+function checkVotingAge(age) {
+  if (age >= 18) {
+    return "Eligible to vote";
+  }
+  return "Not eligible to vote";
+}
 
-// 🔹 Intermediate Level
+function sumTillN(n) {
+  var sum = 0;
 
-// Create a function calcArea(length, breadth) → return area
+  // Start from 1 and keep adding each number till n.
+  for (var i = 1; i <= n; i += 1) {
+    sum += i;
+  }
 
-// Create a function calcSimpleInterest(p, r, t)
+  return sum;
+}
 
-// Create a function convertCelsiusToFahrenheit(c)
+// -------------------------------------------------
+// LOGIC BUILDING FUNCTIONS
+// -------------------------------------------------
 
-// Create a function checkVotingAge(age) → print eligible or not
+function reverseNumber(n) {
+  var reversed = 0;
 
-// Create a function sumTillN(n) → sum from 1 to n
+  // Example with 321:
+  // Step 1 -> digit = 1, reversed = 1, n = 32
+  // Step 2 -> digit = 2, reversed = 12, n = 3
+  // Step 3 -> digit = 3, reversed = 123, n = 0
+  while (n > 0) {
+    var digit = n % 10;
+    reversed = reversed * 10 + digit;
+    n = Math.floor(n / 10);
+  }
 
-// 🔹 Advanced (Logic Building)
+  return reversed;
+}
 
-// Create a function reverseNumber(n)
+function countDigits(n) {
+  // Special case:
+  // The number 0 has 1 digit.
+  if (n === 0) {
+    return 1;
+  }
 
-// Create a function countDigits(n)
+  var count = 0;
+  var number = Math.abs(n);
 
-// Create a function isPalindrome(n)
+  while (number > 0) {
+    count += 1;
+    number = Math.floor(number / 10);
+  }
 
-// Create a function factorial(n)
+  return count;
+}
 
-// Create a function checkPrime(n)
+function isPalindrome(n) {
+  // A palindrome reads the same forward and backward.
+  // Example: 121, 1331
+  var reversed = reverseNumber(n);
+  return reversed === n;
+}
 
-// 🔹 Real-Life Practice
+function factorial(n) {
+  // Factorial means multiplying all whole numbers from 1 to n.
+  // Example: 5! = 1 * 2 * 3 * 4 * 5 = 120
+  var result = 1;
 
-// Create a function billAmount(units) (electricity bill logic)
+  for (var i = 1; i <= n; i += 1) {
+    result *= i;
+  }
 
-// Create a function discount(price)
+  return result;
+}
 
-// Create a function login(username, password) (dummy check)
+function checkPrime(n) {
+  // Prime number means:
+  // the number should have exactly two factors -> 1 and itself
 
-// Create a function calculateBMI(height, weight) → return value (not print)
+  if (n <= 1) {
+    return false;
+  }
 
-// Create a function grade(marks) → return A/B/C/D
+  // We check divisibility starting from 2.
+  // If n is divisible by any number in between,
+  // then it is not prime.
+  for (var i = 2; i < n; i += 1) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// -------------------------------------------------
+// REAL-LIFE STYLE PRACTICE FUNCTIONS
+// -------------------------------------------------
+
+function billAmount(units) {
+  // This is a very simple example of slab-like pricing.
+  // It is not a real electricity formula,
+  // but it helps us practice conditions.
+
+  if (units > 200) {
+    return units * 10;
+  }
+
+  if (units > 100) {
+    return units * 7;
+  }
+
+  return units * 5;
+}
+
+function discount(price) {
+  // Return the discount amount, not the final price.
+  if (price > 2000) {
+    return price * 0.1;
+  }
+
+  if (price > 1000) {
+    return price * 0.05;
+  }
+
+  return 0;
+}
+
+function login(username, password) {
+  // This is a dummy login example.
+  // In real applications, username and password are checked securely.
+  var validUsername = "john@123";
+  var validPassword = "helloworld";
+
+  if (username === validUsername && password === validPassword) {
+    return "Logged In";
+  }
+
+  return "Invalid Credentials";
+}
+
+function calculateBmi(height, weight) {
+  // This version returns the message instead of printing it.
+  // Returning is often more flexible than directly using console.log.
+  var bmi = weight / (height ** 2);
+  var roundedBmi = bmi.toFixed(2);
+
+  if (bmi < 18.5) {
+    return "Underweight, BMI is " + roundedBmi;
+  }
+
+  if (bmi < 25) {
+    return "Normal weight, BMI is " + roundedBmi;
+  }
+
+  if (bmi < 30) {
+    return "Overweight, BMI is " + roundedBmi;
+  }
+
+  return "Obese, BMI is " + roundedBmi;
+}
+
+function grade(marks) {
+  // This function returns a grade based on marks.
+  if (marks > 90 && marks <= 100) {
+    return "A";
+  }
+
+  if (marks > 80) {
+    return "B";
+  }
+
+  if (marks > 70) {
+    return "C";
+  }
+
+  if (marks > 60) {
+    return "D";
+  }
+
+  return "F";
+}
+
+// -------------------------------------------------
+// QUICK SUMMARY FOR BEGINNERS
+// -------------------------------------------------
+
+// 1. A function is a reusable block of code.
+// 2. Parameters are placeholders in the function definition.
+// 3. Arguments are actual values passed during the function call.
+// 4. Local variables live inside a function only.
+// 5. Global variables are created outside functions.
+// 6. return sends a value back and stops the function.
+// 7. Some functions print values, while others return values.
+// 8. Returning a value is usually more flexible than directly printing it.
+
+// -------------------------------------------------
+// SAMPLE CALLS FOR PRACTICE
+// -------------------------------------------------
+
+// console.log(calcSquare(4));
+// console.log(cube(3));
+// console.log(isEven(10));
+// console.log(max(15, 8));
+// console.log(calcArea(10, 20));
+// console.log(calcSimpleInterest(1000, 5, 2));
+// console.log(convertCelsiusToFahrenheit(25));
+// console.log(checkVotingAge(19));
+// console.log(sumTillN(5));
+// console.log(reverseNumber(1234));
+// console.log(countDigits(98765));
+// console.log(isPalindrome(121));
+// console.log(factorial(5));
+// console.log(checkPrime(11));
+// console.log(billAmount(250));
+// console.log(discount(3000));
+// console.log(login("john@123", "helloworld"));
+// console.log(calculateBmi(1.75, 72));
+// console.log(grade(88));
