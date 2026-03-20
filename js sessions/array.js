@@ -259,6 +259,98 @@ console.log("After flat:", totalMarks.flat());
 // So the result is NOT a real array.
 console.log("Concatenation using + :", marks + yourMarks);
 
+// ============================================================
+// forEach() EXPLANATION
+// ============================================================
+// `arr.forEach()` lets us visit each item of an array one by one.
+//
+// It takes a CALLBACK function as its input.
+// That callback can receive 3 values:
+// 1. current item
+// 2. current index
+// 3. original array itself
+//
+// Example form:
+// arr.forEach((item, index, array) => {
+//   // code to run for each item
+// });
+//
+// In the example below:
+// m   -> current mark value
+// i   -> current index
+// arr -> full original array
+
+marks.forEach((m, i, arr) => {
+  console.log("Current value:", m);
+  console.log("Current index:", i);
+  console.log("Original array:", arr);
+});
+
+// `forEach()` is a very good real example of callback.
+// Why?
+// Because we pass one function into `forEach()`,
+// and `forEach()` calls that function again and again
+// for every array item.
+
+// We can also use forEach() when we want to apply a condition
+// to every item in the array.
+//
+// Here we check each mark one by one.
+// If the mark is even, we print it.
+marks.forEach((m, i, arr) => {
+  if (m % 2 === 0) {
+    console.log("Even mark found at index", i, ":", m);
+  }
+});
+
+// Another useful example:
+// We can use forEach() to calculate a total.
+var total = 0;
+
+marks.forEach((m) => {
+  total = total + m;
+});
+
+console.log("Total of all marks using forEach:", total);
+
+// Difference between `for` loop and `forEach()`:
+//
+// `for` loop:
+// - gives more control
+// - useful when we need custom start/end/step
+//
+// `forEach()`:
+// - easier to read for simple item-by-item work
+// - good when we want to do something for every element
+// - uses a callback function
+
+// ============================================================
+// forEach() PRACTICE TASKS
+// ============================================================
+
+// Task 1:
+// Create an array of 5 fruit names.
+// Use forEach() to print each fruit one by one.
+
+// Task 2:
+// Create an array of numbers.
+// Use forEach() to print the square of each number.
+
+// Task 3:
+// Create an array of marks.
+// Use forEach() to print:
+// - "Pass" if mark is 35 or more
+// - "Fail" if mark is less than 35
+
+// Task 4:
+// Create an array of prices.
+// Use forEach() to find the total sum of all prices.
+
+// Task 5:
+// Create an array of names.
+// Use forEach() to print:
+// "Hello <name>"
+
 // `concat()` joins arrays properly and returns a new array.
 console.log("Concatenation using concat():", marks.concat(yourMarks));
 

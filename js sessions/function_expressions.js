@@ -296,3 +296,41 @@ lifeSpan(100, function () {
 // - one that doubles the number
 // - one that squares the number
 // - one that subtracts 5 from the number
+
+// Task 4:
+// Create a function named formatName(cb)
+// The callback should ask the user for a name
+// and return it in uppercase letters.
+
+// Task 5:
+// Create a function named checkAge(cb)
+// The callback should return an age.
+// If age is 18 or more, print "Adult".
+// Otherwise, print "Minor".
+
+// Task 6:
+// Create a function named mathOperation(a, b, cb)
+// and test it with callbacks for:
+// - addition
+// - subtraction
+// - multiplication
+
+// Task 7:
+// Create a function named printResult(cb)
+// The callback should return any sentence.
+// printResult should print:
+// "Callback returned: <sentence>"
+
+// Task 8:
+// Create a function named getUserInfo(cb)
+// The callback should ask for name and age
+// and return a sentence like:
+// "My name is Rahul and I am 20 years old."
+
+function calculateResult(num, cb) {
+  console.log(cb(num));
+}
+
+calculateResult(12, (n) => n * 2);
+calculateResult(12, (n) => n ** 2);
+calculateResult(12, (n) => n - 5);
