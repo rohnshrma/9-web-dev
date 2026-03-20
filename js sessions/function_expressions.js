@@ -157,3 +157,142 @@ var calculator = {
 // 2. Create an arrow function that checks if a number is even.
 // 3. Pass a function as a callback that triples a number.
 // 4. Create an object with methods like multiply and divide.
+
+// -------------------------------------
+// DEEPER CALLBACK EXAMPLE
+// -------------------------------------
+
+// A callback is simply a function that we SEND to another function
+// so that the second function can run it when needed.
+//
+// Think of it like this:
+// 1. We do not send the FINAL ANSWER.
+// 2. We send the FUNCTION that can produce the answer.
+// 3. The receiving function decides when to run it.
+//
+// In this example:
+// - lifeSpan() is the main function
+// - ageFunc is the callback function
+// - lifeSpan() will call ageFunc() inside its own code
+
+// This arrow function asks the user for year of birth
+// and returns the current age.
+//
+// Step by step:
+// 1. prompt() asks the user to type the birth year
+// 2. parseInt() converts the typed text into a number
+// 3. new Date().getFullYear() gives the current year
+// 4. current year - birth year = age
+var ageFunc = () => {
+  var birthYear = parseInt(prompt("Enter year of birth:"), 10);
+  var currentYear = new Date().getFullYear();
+  return currentYear - birthYear;
+};
+
+// This function calculates approximate remaining life.
+//
+// Parameters:
+// average_age -> expected life span, for example 100
+// cb -> callback function that should return the person's age
+function lifeSpan(average_age, cb) {
+  // Here we RUN the callback function.
+  // cb() means:
+  // "execute the function that was passed to me"
+  var currentAge = cb();
+
+  // Remaining years are calculated after callback gives us the age.
+  var years_left = average_age - currentAge;
+
+  // We are using the returned age to calculate more values.
+  var months_left = years_left * 12;
+  var weeks_left = years_left * 52;
+  var days_left = years_left * 365;
+
+  console.log("Current Age:", currentAge);
+  console.log(
+    `Years Left: ${years_left}\nMonths Left: ${months_left}\nWeeks Left: ${weeks_left}\nDays Left: ${days_left}`
+  );
+}
+
+// EXAMPLE 1:
+// Passing a function stored in a variable.
+// Important:
+// We write ageFunc
+// We do NOT write ageFunc()
+//
+// Why?
+// - ageFunc means "pass the function itself"
+// - ageFunc() means "run the function immediately"
+lifeSpan(100, ageFunc);
+
+// EXAMPLE 2:
+// Passing an arrow function directly as a callback.
+// This works, but it is longer and less reusable.
+lifeSpan(100, () => {
+  var birthYear = parseInt(prompt("Enter year of birth:"), 10);
+  return new Date().getFullYear() - birthYear;
+});
+
+// EXAMPLE 3:
+// Passing a normal anonymous function directly as a callback.
+// This is also a function expression.
+lifeSpan(100, function () {
+  var birthYear = parseInt(prompt("Enter year of birth:"), 10);
+  return new Date().getFullYear() - birthYear;
+});
+
+// -------------------------------------
+// BEGINNER SUMMARY OF THE CALLBACK FLOW
+// -------------------------------------
+
+// Read this line carefully:
+// lifeSpan(100, ageFunc);
+//
+// What happens here?
+// 1. lifeSpan receives 100 in average_age
+// 2. lifeSpan receives ageFunc in cb
+// 3. Inside lifeSpan, cb() is called
+// 4. That means ageFunc() runs
+// 5. ageFunc() returns the current age
+// 6. lifeSpan uses that returned age to calculate years left
+//
+// So callback is not a special type of function.
+// It is just a normal function used in a special way:
+// it is passed into another function.
+
+// -------------------------------------
+// WHEN CALLBACKS ARE USEFUL
+// -------------------------------------
+
+// Callbacks are helpful when:
+// 1. We want another function to decide what work should happen
+// 2. We want flexible code
+// 3. We want to reuse the same main function with different behaviors
+//
+// Example idea:
+// processNumber(5, doubleNumber)
+// processNumber(5, squareNumber)
+//
+// Same main function, different callback, different result.
+
+// -------------------------------------
+// 3 PRACTICE TASKS
+// -------------------------------------
+
+// Task 1:
+// Create a function expression named greetUser
+// that asks the user for their name and returns:
+// "Hello, <name>"
+
+// Task 2:
+// Create a function named useMessage
+// that accepts one callback.
+// The callback should return a message,
+// and useMessage should print that message using console.log().
+
+// Task 3:
+// Create a function named calculateResult(num, cb)
+// and test it with 3 different callbacks:
+// - one that doubles the number
+// - one that squares the number
+// - one that subtracts 5 from the number
