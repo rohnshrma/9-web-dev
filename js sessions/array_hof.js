@@ -153,44 +153,159 @@ console.log("\nEvens Using Filter =>", evens_using_filter);
 // ============================================================
 // PRACTICE TASKS
 // ============================================================
-// Practice on forEach():
+// These practice tasks now include concept explanations.
+// The idea is:
+// 1. understand which method fits the problem
+// 2. understand what output is expected
+// 3. focus on the reason behind using that method
+
+// ------------------------------------------------------------
+// Practice on forEach()
+// ------------------------------------------------------------
 // 1. Print square of each number from marks.
+// Concept:
+// Use forEach because the main goal is only to perform an action
+// for every item, which is printing.
+// We do not need a new array here.
+//
 // 2. Print each value with its index like: "Index 0 -> 12".
+// Concept:
+// forEach callback can give both value and index.
+// This task helps practice callback parameters.
+//
 // 3. Create a new array storing triple of each number using forEach.
+// Concept:
+// forEach does not create a new array automatically,
+// so we must create an empty array and push values manually.
+//
 // 4. Create a new array storing only numbers greater than 30 using forEach.
+// Concept:
+// This teaches that forEach can still be used with conditions,
+// but we must manage the result array ourselves.
+//
 // 5. Find the sum of all marks using forEach and an external variable.
-//
-// Practice on map():
+// Concept:
+// forEach is useful when we want to update one outer variable step by step.
+// This is called accumulation.
+
+var total = 0;
+marks.forEach((mark) => (total += mark));
+console.log("\nForEach task 5 total =>", total);
+
+// ------------------------------------------------------------
+// Practice on map()
+// ------------------------------------------------------------
 // 1. Create a new array of halves of each number.
+// Concept:
+// Use map because every original item should become one new value.
+//
 // 2. Convert each number into a string like "Mark: 12".
+// Concept:
+// map is not only for math operations.
+// It can also transform numbers into strings or any other format.
+//
 // 3. Create a new array storing `true` for odd numbers and `false` for even numbers.
+// Concept:
+// map can turn each number into a boolean result.
+// Output length will still remain equal to original length.
+//
 // 4. Add 5 to every number and store result in a new array.
+// Concept:
+// This is a basic transformation task.
+// Every item changes, so map is the cleanest choice.
+//
 // 5. Create a new array of squares of all marks.
-//
-// Practice on filter():
+// Concept:
+// Same idea again:
+// one input item becomes one output item.
+
+// ------------------------------------------------------------
+// Practice on filter()
+// ------------------------------------------------------------
 // 1. Create a new array of numbers greater than 20.
-// 2. Create a new array of odd numbers.
-// 3. Create a new array of numbers less than 35.
-// 4. Create a new array of numbers divisible by 4.
-// 5. Create a new array of numbers between 10 and 40.
+// Concept:
+// Use filter when some items should stay and some should be removed.
 //
-// Mixed practice on these methods:
+// 2. Create a new array of odd numbers.
+// Concept:
+// Callback should return true only for odd values.
+// Those are the values that will be kept.
+//
+// 3. Create a new array of numbers less than 35.
+// Concept:
+// This is another condition-based selection task.
+// filter is designed exactly for this type of problem.
+//
+// 4. Create a new array of numbers divisible by 4.
+// Concept:
+// The condition checks whether remainder is 0.
+// Only matching items remain in the final array.
+//
+// 5. Create a new array of numbers between 10 and 40.
+// Concept:
+// Here we combine two conditions using logical AND.
+// This shows that filter conditions can be simple or complex.
+
+// ------------------------------------------------------------
+// Mixed practice on these methods
+// ------------------------------------------------------------
 // 1. Use filter to get odd numbers, then print them using forEach.
+// Concept:
+// First filter selects the needed values.
+// Then forEach performs the action of printing them.
+// This is a very common method chain.
+
+console.log("\nMix Task 1");
+marks.filter((mark) => mark % 2 !== 0).forEach((mark) => console.log(mark));
+
 // 2. Use map to make doubles, then print only values greater than 50.
+// Concept:
+// First map transforms all values.
+// Then forEach is used to print selected values after checking a condition.
+//
 // 3. Use filter to get even numbers, then map them into their squares.
+// Concept:
+// First reduce the data.
+// Then transform the remaining data.
+//
 // 4. Use map to add 10 to every mark, then filter values above 40.
+// Concept:
+// First change all values.
+// Then select only the matching transformed values.
+//
 // 5. Use filter to get marks below 35, then print "Need Improvement: value".
+// Concept:
+// This combines selection with custom output formatting.
 
 // ============================================================
 // 10 COMBINATION TASKS
 // ============================================================
 // 1. Filter even numbers from marks, then map them to double values.
+// Concept: select first, transform after that.
+//
 // 2. Filter odd numbers from marks, then map them to square values.
+// Concept: keep only needed values, then change their form.
+//
 // 3. Map every mark to mark + 5, then filter marks greater than 40.
+// Concept: transform first because condition depends on updated values.
+//
 // 4. Filter marks greater than 30, then use forEach to print them with index.
+// Concept: filter prepares the final list, forEach performs the action.
+//
 // 5. Map marks to strings like "Score: 12", then print all using forEach.
+// Concept: map changes data format, forEach displays it.
+//
 // 6. Filter marks less than 35, then map them to "Fail" or "Needs Work" style strings.
+// Concept: first identify weak scores, then convert them into messages.
+//
 // 7. Map every mark to its remainder when divided by 2, then filter only 0 values.
+// Concept: map creates a derived value, filter keeps only matching derived results.
+//
 // 8. Filter numbers divisible by 2, map them to halves, then print results using forEach.
+// Concept: one chain can include select -> transform -> action.
+//
 // 9. Filter numbers above 20, map them to triple values, then filter results above 100.
+// Concept: data can be filtered more than once at different stages.
+//
 // 10. Create a new array of square values using map, then filter only squares above 1000.
+// Concept: sometimes we first create a derived dataset, then search inside it.
