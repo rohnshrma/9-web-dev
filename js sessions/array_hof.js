@@ -168,21 +168,40 @@ console.log("\nEvens Using Filter =>", evens_using_filter);
 // for every item, which is printing.
 // We do not need a new array here.
 //
+console.log("For Each task 1");
+marks.forEach((mark) => console.log(mark ** 2));
+
 // 2. Print each value with its index like: "Index 0 -> 12".
 // Concept:
 // forEach callback can give both value and index.
 // This task helps practice callback parameters.
 //
+
+console.log("For Each task 2");
+marks.forEach((mark, index) => console.log(`${mark} => ${index}`));
+
 // 3. Create a new array storing triple of each number using forEach.
 // Concept:
 // forEach does not create a new array automatically,
 // so we must create an empty array and push values manually.
 //
+
+console.log("For Each task 3");
+var triples = [];
+marks.forEach((mark) => triples.push(mark * 3));
+console.log(triples);
+
 // 4. Create a new array storing only numbers greater than 30 using forEach.
 // Concept:
 // This teaches that forEach can still be used with conditions,
 // but we must manage the result array ourselves.
 //
+
+console.log("For Each task 4");
+var greater_than_30 = [];
+marks.forEach((mark) => mark > 30 && greater_than_30.push(mark));
+console.log(greater_than_30);
+
 // 5. Find the sum of all marks using forEach and an external variable.
 // Concept:
 // forEach is useful when we want to update one outer variable step by step.
@@ -199,25 +218,55 @@ console.log("\nForEach task 5 total =>", total);
 // Concept:
 // Use map because every original item should become one new value.
 //
+
+console.log("Map Task 1");
+var halfs = marks.map((mark) => mark / 2);
+console.log(halfs);
+
 // 2. Convert each number into a string like "Mark: 12".
 // Concept:
 // map is not only for math operations.
 // It can also transform numbers into strings or any other format.
 //
+
+console.log("Map Task 2");
+var info = marks.map((mark) => `Mark : ${mark}`);
+console.log(info);
+
 // 3. Create a new array storing `true` for odd numbers and `false` for even numbers.
 // Concept:
 // map can turn each number into a boolean result.
 // Output length will still remain equal to original length.
 //
+
+// console.log("Map Task 3");
+// var divide_info = marks.map((mark) => mark % 2 === 0);
+// console.log(divide_info);
+
+console.log("Map Task 3");
+var divide_info = marks.map((mark) =>
+  mark % 2 === 0 ? `${mark} is even` : `${mark} is odd`
+);
+console.log(divide_info);
+
 // 4. Add 5 to every number and store result in a new array.
 // Concept:
 // This is a basic transformation task.
 // Every item changes, so map is the cleanest choice.
 //
+
+console.log("Map Task 4");
+var incremented = marks.map((mark) => mark + 5);
+console.log(incremented);
+
 // 5. Create a new array of squares of all marks.
 // Concept:
 // Same idea again:
 // one input item becomes one output item.
+
+console.log("Map Task 5");
+var squares = marks.map((mark) => mark ** 2);
+console.log(squares);
 
 // ------------------------------------------------------------
 // Practice on filter()
@@ -226,25 +275,49 @@ console.log("\nForEach task 5 total =>", total);
 // Concept:
 // Use filter when some items should stay and some should be removed.
 //
+
+console.log("Filter Task 1");
+var greater_than_20 = marks.filter((mark) => mark > 20);
+console.log(greater_than_20);
+
 // 2. Create a new array of odd numbers.
 // Concept:
 // Callback should return true only for odd values.
 // Those are the values that will be kept.
 //
+
+console.log("Filter Task 2");
+var odds = marks.filter((mark) => mark % 2 !== 0);
+console.log(odds);
+
 // 3. Create a new array of numbers less than 35.
 // Concept:
 // This is another condition-based selection task.
 // filter is designed exactly for this type of problem.
 //
+
+console.log("Filter Task 3");
+var lesser_than_35 = marks.filter((mark) => mark < 35);
+console.log(lesser_than_35);
+
 // 4. Create a new array of numbers divisible by 4.
 // Concept:
 // The condition checks whether remainder is 0.
 // Only matching items remain in the final array.
 //
+
+console.log("Filter Task 4");
+var divisible_by_4 = marks.filter((mark) => mark % 4 === 0);
+console.log(divisible_by_4);
+
 // 5. Create a new array of numbers between 10 and 40.
 // Concept:
 // Here we combine two conditions using logical AND.
 // This shows that filter conditions can be simple or complex.
+
+console.log("Filter Task 5");
+var range = marks.filter((mark) => mark >= 10 && mark <= 40);
+console.log(range);
 
 // ------------------------------------------------------------
 // Mixed practice on these methods
@@ -263,6 +336,13 @@ marks.filter((mark) => mark % 2 !== 0).forEach((mark) => console.log(mark));
 // First map transforms all values.
 // Then forEach is used to print selected values after checking a condition.
 //
+
+console.log("Mix Task 2");
+var double_greater_than_50 = marks
+  .map((mark) => mark * 2)
+  .filter((mark) => mark > 50);
+console.log(double_greater_than_50);
+
 // 3. Use filter to get even numbers, then map them into their squares.
 // Concept:
 // First reduce the data.
@@ -273,9 +353,17 @@ marks.filter((mark) => mark % 2 !== 0).forEach((mark) => console.log(mark));
 // First change all values.
 // Then select only the matching transformed values.
 //
+
+console.log("Mix Task 4");
+var inc_above_40 = marks.map((mark) => mark + 10).filter((mark) => mark > 40);
+console.log(inc_above_40);
 // 5. Use filter to get marks below 35, then print "Need Improvement: value".
 // Concept:
 // This combines selection with custom output formatting.
+console.log("Mix Task 5");
+marks
+  .filter((mark) => mark < 35)
+  .forEach((mark) => console.log(`Need Improvement : ${mark}`));
 
 // ============================================================
 // 10 COMBINATION TASKS
@@ -283,6 +371,13 @@ marks.filter((mark) => mark % 2 !== 0).forEach((mark) => console.log(mark));
 // 1. Filter even numbers from marks, then map them to double values.
 // Concept: select first, transform after that.
 //
+
+console.log("Combination Task 1");
+var doubles_after_filter = marks
+  .filter((mark) => mark % 2 === 0)
+  .map((mark) => mark * 2);
+console.log(doubles_after_filter);
+
 // 2. Filter odd numbers from marks, then map them to square values.
 // Concept: keep only needed values, then change their form.
 //
