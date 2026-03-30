@@ -404,3 +404,367 @@ console.log(doubles_after_filter);
 //
 // 10. Create a new array of square values using map, then filter only squares above 1000.
 // Concept: sometimes we first create a derived dataset, then search inside it.
+
+// ============================================================
+// some(), every(), sort(), and reduce()
+// ============================================================
+// These methods are also very important in array programming.
+// They solve different types of problems:
+//
+// some()   -> check whether ANY item passes a condition
+// every()  -> check whether ALL items pass a condition
+// sort()   -> rearrange items in order
+// reduce() -> combine all items into one final result
+//
+// A simple way to remember them:
+// some()   -> "At least one?"
+// every()  -> "All?"
+// sort()   -> "In what order?"
+// reduce() -> "One final answer from many values"
+
+// ------------------------------------------------------------
+// some()
+// ------------------------------------------------------------
+// `some()` checks items one by one.
+// As soon as one item makes the condition true,
+// `some()` stops checking and returns true.
+//
+// Important points:
+// 1. some returns only true or false
+// 2. it stops early if condition becomes true
+// 3. use it when you want to know whether at least one match exists
+//
+// Syntax:
+// array.some(function (item, index, originalArray) {})
+//
+// Think like:
+// "Is there at least one item like this?"
+
+console.log("\nSome Example 1");
+var areOddsPresent = marks.some((mark) => mark % 2 !== 0);
+console.log(areOddsPresent);
+
+// Explanation:
+// This callback checks whether a number is odd.
+// mark % 2 !== 0 means remainder is not 0, so the number is odd.
+// If even one odd number is found, result becomes true.
+
+console.log("Some Example 2");
+var isAnyMarkAbove90 = marks.some((mark) => mark > 90);
+console.log(isAnyMarkAbove90);
+
+// ------------------------------------------------------------
+// every()
+// ------------------------------------------------------------
+// `every()` is the opposite style of check.
+// It checks whether all items satisfy the condition.
+// If one item fails, `every()` immediately returns false.
+//
+// Important points:
+// 1. every also returns only true or false
+// 2. it stops early when one item fails
+// 3. use it when every value must satisfy a rule
+//
+// Think like:
+// "Do all items follow this condition?"
+
+console.log("\nEvery Example 1");
+var areAllOdds = marks.every((mark) => mark % 2 !== 0);
+console.log(areAllOdds);
+
+// Explanation:
+// Since our marks array contains even values like 12 and 34,
+// the condition fails, so result becomes false.
+
+console.log("Every Example 2");
+var areAllMarksPositive = marks.every((mark) => mark >= 0);
+console.log(areAllMarksPositive);
+
+// Quick difference:
+// some()  -> true if at least one item passes
+// every() -> true only if all items pass
+
+// ------------------------------------------------------------
+// sort()
+// ------------------------------------------------------------
+// `sort()` is used to arrange array items in some order.
+//
+// Important points:
+// 1. sort changes the original array
+// 2. for numbers, always use a compare function
+// 3. compare function decides which value should come first
+//
+// Syntax:
+// array.sort(function (a, b) {})
+//
+// About compare function:
+// if return value is negative -> `a` comes before `b`
+// if return value is positive -> `b` comes before `a`
+// if return value is 0        -> keep their relative order
+//
+// For numbers:
+// a - b -> ascending
+// b - a -> descending
+
+console.log("\nSort Example 1");
+var marks_ascending = [...marks].sort((a, b) => a - b);
+console.log(marks_ascending);
+
+console.log("Sort Example 2");
+var marks_descending = [...marks].sort((a, b) => b - a);
+console.log(marks_descending);
+
+// We used [...marks] to create a shallow copy first.
+// That way, original `marks` remains unchanged.
+// This is a very useful habit when teaching or debugging.
+
+var names = ["jayesh", "sudhanshu", "jayant", "kumar", "kapilesh", "aditya"];
+
+console.log("Sort Example 3");
+var names_ascending = [...names].sort((a, b) => a.localeCompare(b));
+console.log(names_ascending);
+
+console.log("Sort Example 4");
+var names_descending = [...names].sort((a, b) => b.localeCompare(a));
+console.log(names_descending);
+
+// Why localeCompare for strings?
+// Because subtraction like a - b does not work for strings.
+// `localeCompare()` compares text values alphabetically.
+
+// ------------------------------------------------------------
+// reduce()
+// ------------------------------------------------------------
+// `reduce()` is one of the most powerful array methods.
+// It takes many values and combines them into one final result.
+//
+// Important points:
+// 1. reduce returns one final value
+// 2. that final value can be a number, string, object, or array
+// 3. reducer callback runs for each item
+// 4. whatever we return becomes the next accumulator value
+//
+// Syntax:
+// array.reduce(function (accumulator, currentValue, index, originalArray) {
+//   return updatedAccumulator;
+// }, initialValue);
+//
+// Common names:
+// accumulator -> acc, total, sum, max, result
+// currentValue -> item, cv, mark, value
+//
+// Think like:
+// "Take previous answer, combine current item, return new answer."
+
+// For reduce examples below, we are using a fresh array again.
+var marks = [12, 34, 33, 45, 100, 56, 2, 32, 32];
+
+// ------------------------------------------------------------
+// reduce case 1: without explicit initial value
+// ------------------------------------------------------------
+// If we do not give the second argument to reduce:
+// accumulator starts from arr[0]
+// currentValue starts from arr[1]
+//
+// In this example:
+// first round:
+// accumulator = 12
+// currentValue = 34
+//
+// then we return 46
+// next round accumulator becomes 46
+
+console.log("\nReduce Example 1");
+var total = marks.reduce((pv, cv) => {
+  console.log("pv => ", pv, " cv => ", cv);
+  return pv + cv;
+});
+
+console.log("Total using reduce =>", total);
+
+// ------------------------------------------------------------
+// reduce case 2: with explicit initial value
+// ------------------------------------------------------------
+// Here we provide the starting value manually.
+// That means:
+// accumulator = user defined initial value
+// currentValue starts from arr[0]
+//
+// This is often safer and clearer, especially for sums and objects.
+
+console.log("\nReduce Example 2");
+var total_with_initial_value = marks.reduce((sum, mark) => sum + mark, 0);
+console.log("Total with initial value =>", total_with_initial_value);
+
+// ------------------------------------------------------------
+// reduce example 3: finding biggest number
+// ------------------------------------------------------------
+// We compare current mark with current max.
+// If current mark is bigger, return current mark.
+// Otherwise return old max.
+//
+// So accumulator stores the biggest value found so far.
+
+console.log("Reduce Example 3");
+var biggest = marks.reduce((max, c_mark) => {
+  if (c_mark > max) {
+    return c_mark;
+  } else {
+    return max;
+  }
+}, marks[0]);
+
+console.log("Biggest mark =>", biggest);
+
+// ------------------------------------------------------------
+// reduce example 4: counting odd and even numbers
+// ------------------------------------------------------------
+// Here final result is an object, not a number.
+// This shows that reduce is not limited to sums only.
+
+console.log("Reduce Example 4");
+var odd_even_count = marks.reduce(
+  (count, mark) => {
+    if (mark % 2 === 0) {
+      count.even += 1;
+    } else {
+      count.odd += 1;
+    }
+
+    return count;
+  },
+  { odd: 0, even: 0 }
+);
+
+console.log(odd_even_count);
+
+// ------------------------------------------------------------
+// reduce example 5: making a new array
+// ------------------------------------------------------------
+// reduce can also build arrays manually.
+// Here we collect only marks greater than 30.
+//
+// Note:
+// filter is simpler for this specific task,
+// but this example helps show how flexible reduce is.
+
+console.log("Reduce Example 5");
+var greater_than_30_using_reduce = marks.reduce((result, mark) => {
+  if (mark > 30) {
+    result.push(mark);
+  }
+  return result;
+}, []);
+
+console.log(greater_than_30_using_reduce);
+
+// ============================================================
+// PRACTICE TASKS ON some(), every(), sort(), and reduce()
+// ============================================================
+
+// ------------------------------------------------------------
+// some() practice
+// ------------------------------------------------------------
+// 1. Check if there is any number below 10.
+// 2. Check if any number is exactly 45.
+// 3. Check if any number is greater than 150.
+
+// ------------------------------------------------------------
+// every() practice
+// ------------------------------------------------------------
+// 1. Check whether all numbers are greater than 0.
+// 2. Check whether all numbers are less than 120.
+// 3. Check whether all numbers are even.
+
+// ------------------------------------------------------------
+// sort() practice
+// ------------------------------------------------------------
+// 1. Sort marks in ascending order without changing original array.
+// 2. Sort marks in descending order without changing original array.
+// 3. Sort names in alphabetical order.
+// 4. Sort names in reverse alphabetical order.
+
+// ------------------------------------------------------------
+// reduce() practice
+// ------------------------------------------------------------
+// These tasks are especially useful because reduce is powerful
+// but takes more time to understand deeply.
+//
+// Tip:
+// In every reduce question, first ask:
+// 1. what should accumulator store?
+// 2. what is the starting value?
+// 3. what should be returned in every iteration?
+
+// 1. Find the sum of all marks using reduce.
+// Concept:
+// Accumulator stores running total.
+// Initial value should be 0.
+
+// 2. Find the product of all marks.
+// Concept:
+// Accumulator stores running multiplication result.
+// Initial value should be 1.
+
+// 3. Find the smallest number in marks.
+// Concept:
+// Accumulator stores smallest value found so far.
+
+// 4. Count how many numbers are even.
+// Concept:
+// Accumulator stores count.
+// Start from 0 and increase only when condition matches.
+
+// 5. Count how many numbers are odd.
+// Concept:
+// Same counting pattern as above, but for odd numbers.
+
+// 6. Create an object like:
+// { total: ..., average: ... }
+// Concept:
+// First total all marks.
+// Then average can be derived from total / length.
+
+// 7. Create a new array containing squares of all marks using reduce.
+// Concept:
+// Accumulator is an array.
+// Push mark ** 2 into it and return the array.
+
+// 8. Create a new array containing only marks above 40 using reduce.
+// Concept:
+// This is similar to filter, but solved through reduce.
+
+// 9. Convert marks array into an object where key is index and value is mark.
+// Example:
+// { 0: 12, 1: 34, 2: 33, ... }
+// Concept:
+// Accumulator is an object.
+
+// 10. Find the total of only even marks.
+// Concept:
+// Add value only when mark is even.
+
+// 11. Find the total of only odd marks.
+// Concept:
+// Add value only when mark is odd.
+
+// 12. Build messages like:
+// ["Mark 12", "Mark 34", ...]
+// using reduce.
+// Concept:
+// Reduce can also behave like map when accumulator is an array.
+
+// 13. Find how many marks are greater than 30 and less than 60.
+// Concept:
+// Use reduce as a conditional counter.
+
+// 14. Find the first even number using reduce.
+// Concept:
+// Not the most practical use of reduce, but good for thinking.
+// Accumulator should preserve first match once found.
+
+// 15. Create a frequency object for marks.
+// Example:
+// { 2: 1, 12: 1, 32: 2, 33: 1, ... }
+// Concept:
+// Very important real-world reduce pattern.
