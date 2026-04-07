@@ -62,7 +62,7 @@ function sendRequest(url, handler) {
         readyState: request.readyState,
         data: data,
       });
-    } else if (request.readyState === 4) {
+    } else if (request.readyState === 4 && request.status !== 200) {
       // Failure case:
       // request finished, but status is not 200.
       //
@@ -152,3 +152,10 @@ sendRequest("https://jsonplaceholder.typicode.com/users", (err, data) => {
 // - async / await
 //
 // But callbacks are the foundation, so understanding them is important.
+
+sendRequest("https://jsonplaceholder.typicode.com/comments", (err, data) => {
+  // If there is no error, print success result.
+  if (!err) console.log(data);
+  // Otherwise print error object.
+  else console.log(err);
+});

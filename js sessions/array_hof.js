@@ -710,11 +710,29 @@ console.log(greater_than_30_using_reduce);
 // Concept:
 // Accumulator stores smallest value found so far.
 
+var marks = [12, 34, 33, 45, 100, 56, 2, 32, 0, 32];
+var smallest = marks.reduce((sm, cv) => {
+  console.log("sm =>", sm, "cv => ", cv);
+  if (cv < sm) {
+    return cv;
+  } else {
+    return sm;
+  }
+}, marks[0]);
+
 // 4. Count how many numbers are even.
 // Concept:
 // Accumulator stores count.
 // Start from 0 and increase only when condition matches.
 
+var evens_count = marks.reduce((count, cv) => {
+  if (cv % 2 === 0) {
+    count += 1;
+  }
+  return count;
+}, 0);
+
+console.log(evens_count);
 // 5. Count how many numbers are odd.
 // Concept:
 // Same counting pattern as above, but for odd numbers.
@@ -730,9 +748,26 @@ console.log(greater_than_30_using_reduce);
 // Accumulator is an array.
 // Push mark ** 2 into it and return the array.
 
+var squares = marks.reduce((arr, cv) => {
+  arr.push(cv ** 2);
+  return arr;
+}, []);
+
+console.log(squares);
+
 // 8. Create a new array containing only marks above 40 using reduce.
 // Concept:
 // This is similar to filter, but solved through reduce.
+
+var abv_40 = marks.reduce((arr, cv) => {
+  if (cv > 40) {
+    arr.push(cv);
+  }
+
+  return arr;
+}, []);
+
+console.log(abv_40);
 
 // 9. Convert marks array into an object where key is index and value is mark.
 // Example:
