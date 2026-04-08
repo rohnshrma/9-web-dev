@@ -153,9 +153,46 @@ sendRequest("https://jsonplaceholder.typicode.com/users", (err, data) => {
 //
 // But callbacks are the foundation, so understanding them is important.
 
-sendRequest("https://jsonplaceholder.typicode.com/comments", (err, data) => {
-  // If there is no error, print success result.
-  if (!err) console.log(data);
-  // Otherwise print error object.
-  else console.log(err);
+// ============================================================
+// CALLBACK HELL / PYRAMID OF DOOM
+// ============================================================
+// This block shows the biggest drawback of callback-based async code.
+//
+// Each next request depends on the previous request finishing first,
+// so each request gets nested inside the success block of the earlier one.
+//
+// The logic still works, but notice what happens:
+// - indentation keeps increasing
+// - error handling gets repeated at every level
+// - reading the full flow becomes harder
+//
+// Promises and async/await were introduced to solve this exact readability problem.
+sendRequest("https://jsonplaceholder.typicode.com/comments/1", (err, data) => {
+  if (!err) {
+    console.log(data);
+    sendRequest(
+      "https://jsonplaceholder.typicode.com/comments/2",
+      (err, data) => {
+        if (!err) {
+          console.log(data);
+          sendRequest(
+            "https://jsonplaceholder.typicode.com/comments/3",
+            (err, data) => {
+              if (!err) {
+                console.log(data);
+                sendRequest(
+                  "https://jsonplaceholder.typicode.com/comments/4",
+                  (err, data) => {
+                    if (!err) {
+                      console.log(data);
+                    } else console.log(err);
+                  }
+                );
+              } else console.log(err);
+            }
+          );
+        } else console.log(err);
+      }
+    );
+  } else console.log(err);
 });
