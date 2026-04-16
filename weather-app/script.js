@@ -18,6 +18,8 @@ form.addEventListener("submit", (e) => {
     alert("Enter city name");
     return;
   }
+
+  getWeather(city);
 });
 
 async function getWeather(city) {
@@ -31,9 +33,10 @@ async function getWeather(city) {
       console.log(data);
       removeOldResult();
       createWeatherUI(data);
-      input.value = "";
+      cityInput.value = "";
     }
   } catch (err) {
+    console.log(err);
     alert("City Not Found");
   }
 }
@@ -89,8 +92,7 @@ const createWeatherUI = (data) => {
   }
   details.append(
     createDetail("Feels Like", `${Math.round(data.main.feels_like)}℃`),
-    createDetail("Description", data.weather[0].description),
-    createDetail("CIty", data.name)
+    createDetail("Description", data.weather[0].description)
   );
 
   panel.append(top, temp, details);
