@@ -1,0 +1,12 @@
+{
+  "name": "myserver",
+  "version": "1.0.0",
+  "description": "this is just a dummy node server",
+  "license": "ISC",
+  "author": "rohan sharma",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start" : "node app.js"
+  }
+}
