@@ -2,13 +2,13 @@ import express from "express";
 
 const app = express();
 
+app.use(express.static("public"));
+
 //routes
 
 // home route / root route
 app.route("/").get((req, res) => {
-  res.write("<h1>Welcome to homepage</h1>");
-  res.write("<p>my name is john doe</p>");
-  res.send();
+  res.sendFile(`${process.cwd()}/public/index.html`);
 });
 app.route("/about").get((req, res) => {
   res.write("<h1>Welcome to aboutpage</h1>");

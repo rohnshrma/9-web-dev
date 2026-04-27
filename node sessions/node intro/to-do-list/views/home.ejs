@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple To-Do List</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="todo-card">
+      <h1>To-Do List : <%= date %></h1>
+
+      <form class="input-row" method="post" action="/">
+        <input
+          id="todo-input"
+          type="text"
+          placeholder="Enter a task..."
+          autocomplete="off"
+          name="task"
+        />
+        <button id="add-btn" type="submit">Add</button>
+      </form>
+
+      <ul id="todo-list">
+        <% if(tasks.length > 0){tasks.forEach(task=>{ %>
+
+        <li class="task">
+          <span><%= task.task %></span>
+          <a href="/delete/<%= task.id %>">X</a>
+        </li>
+
+        <%})} else{ %>
+        <li>No Items Found</li>
+        <% } %>
+        <!-- <li>Your tasks will appear here...</li> -->
+      </ul>
+    </main>
+  </body>
+</html>
