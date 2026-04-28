@@ -25,8 +25,17 @@
         <% if(tasks.length > 0){tasks.forEach(task=>{ %>
 
         <li class="task">
-          <span><%= task.task %></span>
-          <a href="/delete/<%= task.id %>">X</a>
+          <!-- edit form -->
+
+          <form action="/update/<%= task.id %>?_method=PUT" method="post">
+            <input type="text" name="task" value="<%= task.task %>" />
+            <button type="submit">UPDATE</button>
+          </form>
+
+          <!--delete form -->
+          <form action="/delete/<%= task.id %>?_method=DELETE" method="post">
+            <button type="submit">DELETE</button>
+          </form>
         </li>
 
         <%})} else{ %>
