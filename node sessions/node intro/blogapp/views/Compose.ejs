@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compose | BlogApp</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-inner container">
+        <a href="/" class="brand">BlogApp</a>
+        <nav class="nav-links">
+          <a href="/">Home</a>
+          <a href="/compose">Compose</a>
+          <a href="/blogs">Blogs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container page">
+      <section class="card">
+        <h1>Compose New Blog</h1>
+        <form action="/compose" method="post" class="stack">
+          <label for="title">Title</label>
+          <input id="title" type="text" placeholder="Enter blog title" name="title" />
+
+          <label for="description">Content</label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Enter blog content"
+          ></textarea>
+
+          <button type="submit" class="btn btn-primary">Add Blog</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

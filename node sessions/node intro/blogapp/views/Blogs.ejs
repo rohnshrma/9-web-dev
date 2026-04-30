@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs | BlogApp</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-inner container">
+        <a href="/" class="brand">BlogApp</a>
+        <nav class="nav-links">
+          <a href="/">Home</a>
+          <a href="/compose">Compose</a>
+          <a href="/blogs">Blogs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container page">
+      <section>
+        <h1>All Blogs</h1>
+
+        <% if (blogs.length > 0) { %>
+        <ul class="blog-list">
+          <% blogs.forEach(blogObj => { %>
+          <li class="card blog-item">
+            <form method="post" action="/blogs/<%= blogObj.id %>?_method=PUT" class="stack">
+              <label>Title</label>
+              <input type="text" name="title" value="<%= blogObj.title %>" />
+
+              <label>Description</label>
+              <textarea name="description"><%= blogObj.description %></textarea>
+
+              <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+
+            <form action="/blogs/<%= blogObj.id %>?_method=DELETE" method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <section class="card empty-state">
+          <p>No blogs found yet.</p>
+          <a href="/compose" class="btn btn-primary">Create First Blog</a>
+        </section>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

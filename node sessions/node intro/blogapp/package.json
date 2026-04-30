@@ -1,0 +1,20 @@
+{
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "method-override": "^3.0.0",
+    "uuid": "^14.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
