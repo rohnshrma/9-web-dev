@@ -27,13 +27,13 @@
         <li class="task">
           <!-- edit form -->
 
-          <form action="/update/<%= task.id %>?_method=PUT" method="post">
-            <input type="text" name="task" value="<%= task.task %>" />
+          <form action="/update/<%= task._id %>?_method=PUT" method="post">
+            <input type="text" name="task" value="<%= task.name %>" />
             <button type="submit">UPDATE</button>
           </form>
 
           <!--delete form -->
-          <form action="/delete/<%= task.id %>?_method=DELETE" method="post">
+          <form action="/delete/<%= task._id %>?_method=DELETE" method="post">
             <button type="submit">DELETE</button>
           </form>
         </li>
