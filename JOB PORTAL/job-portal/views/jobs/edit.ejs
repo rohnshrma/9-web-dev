@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Portal | Edit Job</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container">
+        <a href="/jobs" class="brand">Job Portal</a>
+        <div class="nav-links">
+          <a href="/jobs" class="nav-link">Jobs</a>
+          <a href="/login" class="nav-link">Login</a>
+          <a href="/register" class="nav-link">Register</a>
+          <a href="/jobs/new" class="btn btn-primary">Add New Job</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container main-content">
+      <% if (error) { %>
+      <p class="alert error"><%= error %></p>
+      <% } %>
+
+      <section class="form-card">
+        <form action="/jobs/<%= job._id %>?_method=PUT" method="POST" class="job-form">
+          <label for="title">Job Title *</label>
+          <input type="text" id="title" name="title" value="<%= job.title %>" required />
+
+          <label for="company">Company *</label>
+          <input type="text" id="company" name="company" value="<%= job.company %>" required />
+
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" value="<%= job.location %>" />
+
+          <label for="type">Job Type</label>
+          <select id="type" name="type">
+            <% types.forEach((t) => { %>
+            <option value="<%= t %>" <%= job.type === t ? 'selected' : '' %>><%= t %></option>
+            <% }) %>
+          </select>
+
+          <label for="salary">Salary</label>
+          <input type="text" id="salary" name="salary" value="<%= job.salary %>" />
+
+          <label for="description">Description *</label>
+          <textarea id="description" name="description" rows="6" required><%= job.description %></textarea>
+
+          <button type="submit" class="btn btn-primary full-width">Update Job</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

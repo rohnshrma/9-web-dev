@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Portal | Login</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container">
+        <a href="/jobs" class="brand">Job Portal</a>
+        <div class="nav-links">
+          <a href="/jobs" class="nav-link">Jobs</a>
+          <a href="/login" class="nav-link active">Login</a>
+          <a href="/register" class="nav-link">Register</a>
+          <a href="/jobs/new" class="btn btn-primary">Add New Job</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container main-content">
+      <% if (typeof error !== 'undefined' && error) { %>
+      <p class="alert error"><%= error %></p>
+      <% } %>
+
+      <section class="form-card" style="max-width: 560px; margin: 0 auto;">
+        <form action="/login" method="POST" class="job-form" novalidate>
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+          <label for="password">Password *</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6" />
+
+          <button type="submit" class="btn btn-primary full-width">Login</button>
+        </form>
+
+        <p style="margin-top: 1rem; text-align: center; color: #64748b;">
+          New here?
+          <a href="/register" style="color: #1e3a8a; font-weight: 600; text-decoration: none;">Create an account</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
