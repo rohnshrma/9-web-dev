@@ -1,5 +1,6 @@
 import express from "express";
 import Job from "../models/Job.js";
+import { isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 const JOB_TYPES = ["Full-time", "Part-time", "Contract", "Remote"];
@@ -21,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/new", (req, res) => {
+router.get("/new", isAuthenticated, (req, res) => {
   res.render("jobs/new", {
     job: {},
     types: JOB_TYPES,
@@ -29,7 +30,7 @@ router.get("/new", (req, res) => {
   });
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   try {
     const job = new Job(req.body);
     await job.save();
@@ -67,7 +68,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", isAuthenticated, async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
     if (!job) {
@@ -84,7 +85,7 @@ router.get("/:id/edit", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAuthenticated, async (req, res) => {
   try {
     await Job.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
@@ -99,11 +100,13 @@ router.put("/:id", async (req, res) => {
             .join(" ")
         : "Failed to update job.";
 
-    res.redirect(`/jobs/${req.params.id}/edit?error=${encodeURIComponent(error)}`);
+    res.redirect(
+      `/jobs/${req.params.id}/edit?error=${encodeURIComponent(error)}`
+    );
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAuthenticated, async (req, res) => {
   try {
     await Job.findByIdAndDelete(req.params.id);
     res.redirect("/jobs?success=Job+deleted+successfully");

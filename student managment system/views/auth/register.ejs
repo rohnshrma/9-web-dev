@@ -1,0 +1,24 @@
+<%- include('../partials/head') %>
+<main class="auth-shell">
+  <section class="auth-card">
+    <h2>Create Account</h2>
+    <p class="muted">Set up a new user account for the system.</p>
+    <form class="form-grid" action="#" method="post">
+      <label>Full Name</label>
+      <input type="text" placeholder="Alex Ray" />
+      <label>Email</label>
+      <input type="email" placeholder="alex@example.com" />
+      <label>Password</label>
+      <input type="password" placeholder="Create password" />
+      <label>Role</label>
+      <select>
+        <option>Student</option>
+        <option>Teacher</option>
+        <option>Admin</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <p class="todo">TODO: Implement registration logic and password hashing.</p>
+  </section>
+</main>
+<%- include('../partials/scripts') %>

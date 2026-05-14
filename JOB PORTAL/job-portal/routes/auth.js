@@ -1,23 +1,30 @@
 import { Router } from "express";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import passport from "passport";
 
 const router = Router();
 
 router
   .route("/register")
   .get((req, res) => {
-    res.render("auth/register");
+    res.render("auth/register", {
+      error: req.query.error || "",
+    });
   })
   .post(async (req, res) => {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, confirmPassword } = req.body;
+
+      if (password !== confirmPassword) {
+        return res.redirect("/register?error=Passwords+do+not+match");
+      }
 
       const existinguser = await User.findOne({ email });
 
       if (existinguser) {
         console.log("User already exists with email : ", email);
-        return res.redirect("/login");
+        return res.redirect("/login?error=Account+already+exists");
       }
 
       const hash = await bcrypt.hash(password, 10);
@@ -25,42 +32,33 @@ router
       const user = await User.create({ name, email, password: hash });
 
       console.log("User Successfully Registered", user);
-      res.redirect("/");
+      res.redirect("/login");
     } catch (err) {
       console.log(err);
-      res.redirect("/register");
+      res.redirect("/register?error=Unable+to+register+right+now");
     }
   });
 
 router
   .route("/login")
   .get((req, res) => {
-    res.render("auth/login");
+    res.render("auth/login", {
+      error: req.query.error || "",
+    });
   })
-  .post(async (req, res) => {
-    try {
-      const { email, password } = req.body;
+  .post(
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login?error=Invalid+email+or+password",
+    })
+  );
 
-      const existinguser = await User.findOne({ email });
-
-      if (!existinguser) {
-        console.log("User Doesn't exists with email : ", email);
-        return res.redirect("/register");
-      }
-
-      const match = await bcrypt.compare(password, existinguser.password);
-
-      if (!match) {
-        console.log("Incorrect Password");
-        return res.redirect("/login");
-      }
-
-      console.log("User Successfully Logged In");
-      res.redirect("/");
-    } catch (err) {
-      console.log(err);
-      res.redirect("/register");
+router.route("/logout").get((req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
     }
+    res.redirect("/login");
   });
-
+});
 export default router;
