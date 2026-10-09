@@ -1,6 +1,6 @@
 # Getting Started (Windows + VS Code)
 
-Read this first, then read `ASSIGNMENT.md` for what to build and `docs/build-guide.md` for the order to build it in. This file is only about **how to work**: your machine, your repository, your git routine.
+Read this first, then read `ASSIGNMENT.md` for what to build and `docs/build-guide.md` for the day-by-day order of work. This file is only about **how to work**: your machine, your repository, your git routine.
 
 You are building this alone, in **your own repository**. The other two students in the batch are building the same thing in theirs. Nobody pushes to anybody else's repo.
 
@@ -87,7 +87,7 @@ Keep it private. Three private repos, three students, no copying.
 
 ## 2. Every day, the same routine
 
-### Start of the day (10 min)
+### Start of the day (15 min)
 ```bash
 cd /c/dev/clinic-management-crm
 git checkout main
@@ -95,7 +95,7 @@ git pull                   # in case you worked on another laptop, or merged a P
 npm install                # in case you added a package yesterday
 ```
 
-Then open `docs/build-guide.md`, find where you stopped, and **start a branch for today's task** (section 3).
+Then open `docs/build-guide.md`, read today's section, and **cut a branch for the first task of the day** (section 3). At eight hours a day you will do this two or three times before evening.
 
 ### While working
 Commit small and often, **one commit per finished thing**. Not one commit per day.
@@ -130,21 +130,23 @@ Bad: `update`, `changes`, `final`, `asdf`
 
 Six months from now this log is the only record of what you did. In an interview, "walk me through your commit history" is a real question.
 
-### End of the day (5 min)
+### End of the day (30 min)
 ```bash
 git push                   # or: git push -u origin <branch>  the first time
 ```
 
 Push **every day**, even if the task is half done, even if nothing runs. Unpushed work on your laptop is invisible, unbacked-up and unprovable.
 
-Then write one line in a notebook or a text file: what's done, what's next, what's confusing you. Bring the third one to the next class.
+Then **re-run the whole Postman collection**, not just today's folder. It takes ninety seconds and it is the only thing standing between you and discovering on Day 11 that Day 6 broke. Fix anything red before you stop — a regression is cheapest on the day you caused it.
+
+Finally, write one line in a notebook or a text file: what's done, what's next, what's confusing you. Bring the third one to the next class.
 
 ### Cheat sheet
 | I want to | Command |
 |---|---|
 | See which branch I'm on | `git branch` (or bottom-left of VS Code) |
 | See what I changed | `git status` and `git diff` |
-| Start today's task | `git checkout main && git pull && git checkout -b feat/thing` |
+| Start a task (2–3 a day) | `git checkout main && git pull && git checkout -b feat/thing` |
 | Save my work | `git add .` then `git commit -m "..."` |
 | Upload my work | `git push` |
 | Open the PR | `gh pr create --base main --fill` |
@@ -157,7 +159,7 @@ Then write one line in a notebook or a text file: what's done, what's next, what
 
 ### The loop
 
-One task in the build guide = one branch = one PR.
+One task in the build guide = one branch = one PR. In a twelve-day sprint that loop runs **two or three times a day**, so it has to be fast — the whole cycle below is about four minutes of overhead per task.
 
 ```bash
 git checkout main
@@ -196,7 +198,7 @@ Use a checklist on every PR. Paste this into the description:
 - [ ] No console.log, no .env, no commented-out code
 ```
 
-Four boxes, thirty seconds. They will save you hours in Phase 3 when a tenancy bug is buried under twenty commits.
+Four boxes, thirty seconds. They will save you hours on Days 7 to 10 when a tenancy bug is buried under twenty commits.
 
 ### Branch names
 
